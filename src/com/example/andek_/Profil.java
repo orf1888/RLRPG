@@ -14,7 +14,7 @@ public class Profil
 		public static Profil load()
 		{
 			Profil p = new Profil();
-			p.nick = "test";
+			p.nick = "Kutnapletes";
 			p.lvl = -2;
 			p.xp = 23;
 			return p;
