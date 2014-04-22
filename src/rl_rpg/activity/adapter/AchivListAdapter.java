@@ -18,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class AchivListAdapter extends BaseAdapter implements OnClickListener
@@ -113,10 +114,16 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 
 			holder.achivName.setText( tempValues.getAchivName() );
 			holder.achivDescrip.setText( tempValues.getAchivDescr() );
-			/*
-			 * holder.image.setImageResource( res.getIdentifier( "com.androidexample.customlistview:drawable/" +
-			 * tempValues.getImage(), null, null ) );
-			 */
+			holder.achivStart.setOnClickListener( new OnClickListener()
+			{
+
+				@Override
+				public void onClick( View v )
+				{
+					Toast.makeText( inflater.getContext(), "Zacz¹³eœ " + tempValues.getAchivName(), Toast.LENGTH_SHORT )
+							.show();
+				}
+			} );
 
 			/******** Set Item Click Listner for LayoutInflater for each row *******/
 
@@ -144,16 +151,10 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 		@Override
 		public void onClick( View arg0 )
 		{
+			AchivListViewActivity sct = (AchivListViewActivity) activity;
+			/****  Call  onItemClick Method inside CustomListViewAndroidExample Class ( See Below )****/
 
-			if( arg0 instanceof Button ) {
-				
-			} else {
-				AchivListViewActivity sct = (AchivListViewActivity) activity;
-
-				/****  Call  onItemClick Method inside CustomListViewAndroidExample Class ( See Below )****/
-
-				sct.onItemClick( mPosition );
-			}
+			sct.onItemClick( mPosition );
 		}
 	}
 }

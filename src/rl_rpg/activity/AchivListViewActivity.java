@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class AchivListViewActivity extends Activity
@@ -65,6 +66,7 @@ public class AchivListViewActivity extends Activity
 	/*****************  This function used by adapter ****************/
 	public void onItemClick( int mPosition )
 	{
+		//adapter.getItem( mPosition )
 		AchivListModel achivment = (AchivListModel) CustomListViewValuesArr.get( mPosition );
 		/* Show achivment description */
 		AlertDialog.Builder builder = new AlertDialog.Builder( this );
