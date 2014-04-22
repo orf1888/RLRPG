@@ -2,9 +2,9 @@ package rl_rpg.activity.adapter;
 
 import java.util.ArrayList;
 
-import rl_rpg.activity.AchivListViewActivity;
+import rl_rpg.activity.ChallengeListViewActivity;
 import rl_rpg.activity.R;
-import rl_rpg.model.AchivListModel;
+import rl_rpg.model.ChallengeListModel;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class AchivListAdapter extends BaseAdapter implements OnClickListener
+public class ChallengeListAdapter extends BaseAdapter implements OnClickListener
 {
 
 	/*********** Declare Used Variables *********/
@@ -33,7 +33,7 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 	int i = 0;
 
 	/*************  CustomAdapter Constructor *****************/
-	public AchivListAdapter( Activity a, ArrayList d, Resources resLocal )
+	public ChallengeListAdapter( Activity a, ArrayList d, Resources resLocal )
 	{
 
 		/********** Take passed values **********/
@@ -69,16 +69,16 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 	public static class ViewHolder
 	{
 		ViewHolder(View viev){
-			achivName = (TextView) viev.findViewById( R.id.achivName );
-			achivDescrip = (TextView) viev.findViewById( R.id.achivDesription );
-			image = (ImageView) viev.findViewById( R.id.achivImg );
-			achivStart = (Button) viev.findViewById( R.id.achivStart );
+			challengeName = (TextView) viev.findViewById( R.id.challengeName );
+			challengeDescrip = (TextView) viev.findViewById( R.id.challengeDesription );
+			image = (ImageView) viev.findViewById( R.id.challengeImg );
+			challengeStart = (Button) viev.findViewById( R.id.challengeStart );
 		}
-		public TextView achivName;
-		public TextView achivDescrip;
+		public TextView challengeName;
+		public TextView challengeDescrip;
 		//public TextView textWide;
 		public ImageView image;
-		public Button achivStart;
+		public Button challengeStart;
 
 	}
 
@@ -92,7 +92,7 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 		if( convertView == null ) {
 
 			/****** Inflate tabitem.xml file for each row ( Defined below ) *******/
-			vi = inflater.inflate( R.layout.achiv_item, null );
+			vi = inflater.inflate( R.layout.challenge_item, null );
 
 			/****** View Holder Object to contain tabitem.xml file elements ******/
 			holder = new ViewHolder(vi);
@@ -104,7 +104,7 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 		}
 
 		if( data.size() <= 0 ) {
-			holder.achivName.setText( "No Data" );
+			holder.challengeName.setText( "No Data" );
 
 		} else {
 			/***** Get each Model object from Arraylist ********/
@@ -113,21 +113,21 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 
 			/************  Set Model values in Holder elements ***********/
 
-			AchivListModel tempValues= (AchivListModel) data.get( position );
+			ChallengeListModel tempValues= (ChallengeListModel) data.get( position );
 			
-			holder.achivName.setText( tempValues.getAchivName() );
-			holder.achivDescrip.setText( tempValues.getAchivDescr() );
-			holder.achivStart.setTag( new Integer(position) );
-			holder.achivStart.setOnClickListener( new OnClickListener()
+			holder.challengeName.setText( tempValues.getChallengeName() );
+			holder.challengeDescrip.setText( tempValues.getChallengeDescr() );
+			holder.challengeStart.setTag( new Integer(position) );
+			holder.challengeStart.setOnClickListener( new OnClickListener()
 			{
 
 				@Override
 				public void onClick( View v )
 				{
 					Integer position= (Integer) v.getTag();
-					AchivListModel arch = (AchivListModel) data.get( position );
-					//String x = holder.achivName.getText().toString();
-					Toast.makeText( inflater.getContext(), "Zacz¹³eœ " + arch.getAchivName(), Toast.LENGTH_SHORT )
+					ChallengeListModel arch = (ChallengeListModel) data.get( position );
+					//String x = holder.challengeName.getText().toString();
+					Toast.makeText( inflater.getContext(), "Zacz¹³eœ " + arch.getChallengeName(), Toast.LENGTH_SHORT )
 							.show();
 				}
 			} );
@@ -158,7 +158,7 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 		@Override
 		public void onClick( View arg0 )
 		{
-			AchivListViewActivity sct = (AchivListViewActivity) activity;
+			ChallengeListViewActivity sct = (ChallengeListViewActivity) activity;
 			/****  Call  onItemClick Method inside CustomListViewAndroidExample Class ( See Below )****/
 
 			sct.onItemClick( mPosition );

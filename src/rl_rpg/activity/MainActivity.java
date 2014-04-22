@@ -24,7 +24,7 @@ public class MainActivity extends Activity
 	static class EkranGlowny
 	{
 		public TextView nick, lvl, xp;
-		public Button achivments, community;
+		public Button challenge, community;
 		public ImageButton myAccount;
 
 		Activity parent;
@@ -64,13 +64,13 @@ public class MainActivity extends Activity
 
 			/////////////////////////
 			//// onClick
-			achivments.setOnClickListener( new OnClickListener()
+			challenge.setOnClickListener( new OnClickListener()
 			{
 				@Override
 				public void onClick( View v )
 				{
 					/* Dzia³a? */
-					Intent intent = new Intent( context, AchivListViewActivity.class );
+					Intent intent = new Intent( context, ChallengeListViewActivity.class );
 					intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
 					context.startActivity( intent );
 				}
@@ -114,7 +114,7 @@ public class MainActivity extends Activity
 		ekranGlowny.xp = (TextView) findViewById( R.id.textLblXp );
 		ekranGlowny.updateProfil();
 
-		ekranGlowny.achivments = (Button) findViewById( R.id.btnAchive );
+		ekranGlowny.challenge = (Button) findViewById( R.id.btnChallenge );
 		ekranGlowny.community = (Button) findViewById( R.id.btnCom );
 		ekranGlowny.myAccount = (ImageButton) findViewById( R.id.myAcc );
 

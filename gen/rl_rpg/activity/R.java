@@ -25,24 +25,24 @@ public final class R {
         public static final int stick=0x7f020001;
     }
     public static final class id {
-        public static final int LinearLayout1=0x7f080005;
-        public static final int achivDesription=0x7f080002;
-        public static final int achivImg=0x7f080000;
-        public static final int achivName=0x7f080001;
-        public static final int achivStart=0x7f080003;
+        public static final int LinearLayout1=0x7f080000;
         public static final int action_settings=0x7f08000c;
-        public static final int btnAchive=0x7f08000a;
-        public static final int btnCom=0x7f08000b;
-        public static final int list=0x7f080004;
-        public static final int myAcc=0x7f080006;
-        public static final int textLblLvl=0x7f080008;
-        public static final int textLblNick=0x7f080007;
-        public static final int textLblXp=0x7f080009;
+        public static final int btnChallenge=0x7f080005;
+        public static final int btnCom=0x7f080006;
+        public static final int challengeDesription=0x7f080009;
+        public static final int challengeImg=0x7f080007;
+        public static final int challengeName=0x7f080008;
+        public static final int challengeStart=0x7f08000a;
+        public static final int list=0x7f08000b;
+        public static final int myAcc=0x7f080001;
+        public static final int textLblLvl=0x7f080003;
+        public static final int textLblNick=0x7f080002;
+        public static final int textLblXp=0x7f080004;
     }
     public static final class layout {
-        public static final int achiv_item=0x7f030000;
-        public static final int achiv_list=0x7f030001;
-        public static final int activity_main=0x7f030002;
+        public static final int activity_main=0x7f030000;
+        public static final int challenge_item=0x7f030001;
+        public static final int challenge_list=0x7f030002;
     }
     public static final class menu {
         public static final int achivment=0x7f070000;
