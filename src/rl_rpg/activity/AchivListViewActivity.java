@@ -2,16 +2,14 @@ package rl_rpg.activity;
 
 import java.util.ArrayList;
 
-import rl_rpg.activity.R;
 import rl_rpg.activity.adapter.AchivListAdapter;
 import rl_rpg.model.AchivListModel;
-
-
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
 public class AchivListViewActivity extends Activity
@@ -53,7 +51,7 @@ public class AchivListViewActivity extends Activity
 			final AchivListModel sched = new AchivListModel();
 
 			/******* Firstly take data in model object ******/
-			sched.setAchivName( "Achivment"+i );
+			sched.setAchivName( "Achivment" + i );
 			//sched.setImage( "image" + i );
 			sched.setAchivDescr( "This achivment value is 100 XP" );
 
@@ -67,13 +65,19 @@ public class AchivListViewActivity extends Activity
 	/*****************  This function used by adapter ****************/
 	public void onItemClick( int mPosition )
 	{
-		AchivListModel tempValues = (AchivListModel) CustomListViewValuesArr.get( mPosition );
-
-
-		// SHOW ALERT                 
-
-		Toast.makeText( CustomListView,
-				"" + tempValues.getAchivName() +  "Descripion:" + tempValues.getAchivDescr(),
-				Toast.LENGTH_LONG ).show();
+		AchivListModel achivment = (AchivListModel) CustomListViewValuesArr.get( mPosition );
+		/* Show achivment description */
+		AlertDialog.Builder builder = new AlertDialog.Builder( this );
+		builder.setMessage( "You need to etc.\n" + achivment.getAchivDescr() );
+		/* Dodaæ "Ok" do stringsów */
+		builder.setPositiveButton( "OK", new DialogInterface.OnClickListener()
+		{
+			public void onClick( DialogInterface dialog, int id )
+			{
+				return;
+			}
+		} );
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 }
