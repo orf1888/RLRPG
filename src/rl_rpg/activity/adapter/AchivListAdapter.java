@@ -6,7 +6,6 @@ import rl_rpg.activity.AchivListViewActivity;
 import rl_rpg.activity.R;
 import rl_rpg.model.AchivListModel;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -114,8 +113,10 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 
 			holder.achivName.setText( tempValues.getAchivName() );
 			holder.achivDescrip.setText( tempValues.getAchivDescr() );
-			/*holder.image.setImageResource( res.getIdentifier( "com.androidexample.customlistview:drawable/"
-					+ tempValues.getImage(), null, null ) );*/
+			/*
+			 * holder.image.setImageResource( res.getIdentifier( "com.androidexample.customlistview:drawable/" +
+			 * tempValues.getImage(), null, null ) );
+			 */
 
 			/******** Set Item Click Listner for LayoutInflater for each row *******/
 
@@ -144,12 +145,15 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 		public void onClick( View arg0 )
 		{
 
+			if( arg0 instanceof Button ) {
+				
+			} else {
+				AchivListViewActivity sct = (AchivListViewActivity) activity;
 
-			AchivListViewActivity sct = (AchivListViewActivity) activity;
+				/****  Call  onItemClick Method inside CustomListViewAndroidExample Class ( See Below )****/
 
-			/****  Call  onItemClick Method inside CustomListViewAndroidExample Class ( See Below )****/
-
-			sct.onItemClick( mPosition );
+				sct.onItemClick( mPosition );
+			}
 		}
 	}
 }

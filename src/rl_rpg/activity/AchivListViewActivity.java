@@ -69,6 +69,7 @@ public class AchivListViewActivity extends Activity
 		/* Show achivment description */
 		AlertDialog.Builder builder = new AlertDialog.Builder( this );
 		builder.setMessage( "You need to etc.\n" + achivment.getAchivDescr() );
+		builder.setTitle( achivment.getAchivName() );
 		/* Dodaæ "Ok" do stringsów */
 		builder.setPositiveButton( "OK", new DialogInterface.OnClickListener()
 		{
