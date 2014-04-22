@@ -1,0 +1,82 @@
+ <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+           android:paddingTop="0dip" android:layout_gravity="top"
+         >
+
+     <TableRow>
+
+         <LinearLayout
+             android:layout_width="110dp"
+             android:layout_height="match_parent"
+             android:paddingBottom="5dp"
+             android:paddingLeft="10dp"
+             android:paddingTop="5dp" >
+
+             <ImageView
+                 android:id="@+id/achivImg"
+                 android:layout_width="30dp"
+                 android:layout_height="30dp"
+                 android:layout_marginLeft="10dp"
+                 android:layout_marginTop="10dp"
+                 android:background="@drawable/stick"
+                 android:gravity="left"
+                 android:scaleType="centerCrop" />
+
+         </LinearLayout>
+
+         <TableLayout
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="top"
+             android:paddingTop="0dip" >
+
+             <TableRow>
+
+                 <TextView
+                     android:id="@+id/achivName"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="right|center_vertical"
+                     android:layout_marginLeft="10dip"
+                     android:layout_marginTop="4dip"
+                     android:layout_span="1"
+                     android:layout_weight="1"
+                     android:text="t1"
+                     android:textColor="#000000"
+                     android:textSize="16sp" />
+             </TableRow>
+
+             <TableRow android:id="@+id/achivDesription" >
+
+                 <TextView
+                     android:id="@+id/text1"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="right|center_vertical"
+                     android:layout_marginLeft="10dip"
+                     android:layout_marginTop="4dip"
+                     android:layout_weight="1"
+                     android:gravity="left"
+                     android:text="t2"
+                     android:textColor="#000000"
+                     android:textSize="16sp" />
+             </TableRow>
+         </TableLayout>
+
+         <LinearLayout
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" >
+
+             <Button
+                 android:id="@+id/achivStart"
+                 style="?android:attr/buttonStyleSmall"
+                 android:layout_width="177dp"
+                 android:layout_height="wrap_content"
+                 android:text="Button" />
+
+         </LinearLayout>
+
+     </TableRow>
+
+</TableLayout>
