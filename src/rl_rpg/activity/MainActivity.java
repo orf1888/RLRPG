@@ -7,7 +7,6 @@ import rl_rpg.model.Profil;
 import rl_rpg.model.Profil.OnChangeProfilListener;
 import rl_rpg.utils.L;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -36,7 +35,7 @@ public class MainActivity extends Activity
 		{
 			this.parent = parent;
 		}
-		
+
 		// funkcja wykonywana automatycznie dla kazdej zmiany zachodzacej w profil
 		public void updateProfil()
 		{
@@ -47,7 +46,7 @@ public class MainActivity extends Activity
 
 		public void setListeners( final Context context )
 		{
-			
+
 			/////////////////////////
 			//// onChange
 			Profil.getLocal().addOnChangeListener( new OnChangeProfilListener()
@@ -107,11 +106,11 @@ public class MainActivity extends Activity
 	protected void onCreate( Bundle savedInstanceState )
 	{
 		super.onCreate( savedInstanceState );
-		
+
 		RLRPGApplication.registerActivity( this );
 
 		/* init */
-		ekranGlowny = new EkranGlowny(this);
+		ekranGlowny = new EkranGlowny( this );
 
 		/* init view */
 		setContentView( R.layout.activity_main );
@@ -126,33 +125,35 @@ public class MainActivity extends Activity
 
 		ekranGlowny.setListeners( getApplicationContext() );
 	}
-	
-	
+
+
 	/**
 	 * wczytujemy zapis stanu
 	 */
 	@Override
-	protected void onPause() {
+	protected void onPause()
+	{
 		super.onPause();
 		try {
 			RLRPGApplication.performSave();
 		} catch ( IOException e ) {
-			L.log( "Error MainActivity "+e.getMessage() );
+			L.log( "Error MainActivity " + e.getMessage() );
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
-	protected void onResume() {
+	protected void onResume()
+	{
 		super.onResume();
 		try {
 			RLRPGApplication.performLoad();
 		} catch ( Exception e ) {
-			L.log( "Error MainActivity "+e.getMessage() );
+			L.log( "Error MainActivity " + e.getMessage() );
 			e.printStackTrace();
 		}
 	}
-	
+
 
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu )

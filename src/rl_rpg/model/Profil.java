@@ -32,31 +32,28 @@ public class Profil
 	}
 
 	/*
-	public void update( ProfilDelta d )
-	{
-		raiseOnChanged();
-	}
-	*/
+	 * public void update( ProfilDelta d ) { raiseOnChanged(); }
+	 */
 
 	///
 	/// static methods
 	///
-	
+
 	public static Profil getLocal()
 	{
 		return Manager.getLocalProfil();
 	}
-	
+
 	///
 	/// private methods
 	///
-	
+
 	private void raiseOnChanged()
 	{
 		for (OnChangeProfilListener listener : onChangeListeners)
 			listener.onChange();
 	}
-	
+
 	///
 	/// classes
 	///
@@ -75,46 +72,51 @@ public class Profil
 	public static class Manager
 	{
 		Profil local = null;
-		
-		
+
+
 		public static Profil getLocalProfil()
 		{
-			if( instance().local==null)
-				instance().local= createDefault();
+			if( instance().local == null )
+				instance().local = createDefault();
 			return instance().local;
 		}
-		
-		public static void update(){
+
+		public static void update()
+		{
 			Profil local = getLocalProfil();
-			if( local.changed ){
-				local.changed= false;
+			if( local.changed ) {
+				local.changed = false;
 				local.raiseOnChanged();
 			}
 		}
-		
+
 		static Profil createDefault()
 		{
 			Profil p = new Profil();
 			p.nick = "x";
 			p.lvl = 1;
 			p.xp = 0;
-			p.changed= true;
+			p.changed = true;
 			return p;
 		}
-		
-		static Manager _instance= null;
-		static Manager instance(){
-			if( _instance==null ){
-				_instance= new Manager();
+
+		static Manager _instance = null;
+
+		static Manager instance()
+		{
+			if( _instance == null ) {
+				_instance = new Manager();
 			}
 			return _instance;
 		}
-		
-		Manager(){
+
+		Manager()
+		{
 			RLRPGApplication.addSaveLoadListener( new ProfilSaveLoadListener() );
 		}
-		
-		static class ProfilSaveLoadListener implements SaveLoadListener{
+
+		static class ProfilSaveLoadListener implements SaveLoadListener
+		{
 
 			@Override
 			public Map<String, Object> onSave()
@@ -131,10 +133,10 @@ public class Profil
 			public void onLoad( Map<String, Object> save )
 			{
 				Profil local = Manager.getLocalProfil();
-				local.nick= (String) save.get( "local_nick" );
-				local.lvl= (int)(Integer) save.get( "local_lvl" );
-				local.xp= (int)(Integer) save.get( "local_xp" );
-				local.changed= true;
+				local.nick = (String) save.get( "local_nick" );
+				local.lvl = (int) (Integer) save.get( "local_lvl" );
+				local.xp = (int) (Integer) save.get( "local_xp" );
+				local.changed = true;
 				///
 				++local.lvl;
 				///
@@ -160,7 +162,7 @@ public class Profil
 	public void setNick( String nick )
 	{
 		this.nick = nick;
-		this.changed= true;
+		this.changed = true;
 	}
 
 	public int getLvl()
@@ -171,7 +173,7 @@ public class Profil
 	public void setLvl( int lvl )
 	{
 		this.lvl = lvl;
-		this.changed= true;
+		this.changed = true;
 	}
 
 	public int getXp()
@@ -182,6 +184,6 @@ public class Profil
 	public void setXp( int xp )
 	{
 		this.xp = xp;
-		this.changed= true;
+		this.changed = true;
 	}
 }
