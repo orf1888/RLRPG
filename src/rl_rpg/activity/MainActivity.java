@@ -92,7 +92,9 @@ public class MainActivity extends Activity
 				@Override
 				public void onClick( View v )
 				{
-					Toast.makeText( context, "Klikn¹³eœ na swoje konto!", Toast.LENGTH_SHORT ).show();
+					Intent intent = new Intent( context, MyAccountActivity.class );
+					intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+					context.startActivity( intent );
 				}
 			} );
 		}

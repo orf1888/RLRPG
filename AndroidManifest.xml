@@ -9,28 +9,31 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
 
-    <uses-permission 
-	    android:name="android.permission.WRITE_EXTERNAL_STORAGE" 
-	    />
-    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
-        android:name="RLRPGApplication"
-        android:description="@string/app_description"
+        android:name="rl_rpg.activity.RLRPGApplication"
         android:allowBackup="true"
+        android:description="@string/app_description"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="MainActivity"
+            android:name="rl_rpg.activity.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="AchivListViewActivity"
-            android:label="@string/app_name">
+            android:name="rl_rpg.activity.ChallengeListViewActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="rl_rpg.activity.MyAccountActivity"
+            android:label="@string/title_activity_my_account" >
         </activity>
     </application>
 
