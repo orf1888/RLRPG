@@ -66,7 +66,7 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 
 		public TextView achivName;
 		public TextView achivDescrip;
-		public TextView textWide;
+		//public TextView textWide;
 		public ImageView image;
 		public Button achivStart;
 
