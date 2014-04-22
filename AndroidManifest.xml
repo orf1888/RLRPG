@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="AchivListViewActivity"
+            android:name="ChallengeListViewActivity"
             android:label="@string/app_name">
         </activity>
     </application>
