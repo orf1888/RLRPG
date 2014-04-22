@@ -29,7 +29,7 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 	private ArrayList data;
 	private static LayoutInflater inflater = null;
 	public Resources res;
-	AchivListModel tempValues = null;
+//	AchivListModel tempValues = null;
 	int i = 0;
 
 	/*************  CustomAdapter Constructor *****************/
@@ -68,7 +68,12 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 	/********* Create a holder Class to contain inflated xml file elements *********/
 	public static class ViewHolder
 	{
-
+		ViewHolder(View viev){
+			achivName = (TextView) viev.findViewById( R.id.achivName );
+			achivDescrip = (TextView) viev.findViewById( R.id.achivDesription );
+			image = (ImageView) viev.findViewById( R.id.achivImg );
+			achivStart = (Button) viev.findViewById( R.id.achivStart );
+		}
 		public TextView achivName;
 		public TextView achivDescrip;
 		//public TextView textWide;
@@ -90,37 +95,39 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 			vi = inflater.inflate( R.layout.achiv_item, null );
 
 			/****** View Holder Object to contain tabitem.xml file elements ******/
-
-			holder = new ViewHolder();
-			holder.achivName = (TextView) vi.findViewById( R.id.achivName );
-			holder.achivDescrip = (TextView) vi.findViewById( R.id.achivDesription );
-			holder.image = (ImageView) vi.findViewById( R.id.achivImg );
-			holder.achivStart = (Button) vi.findViewById( R.id.achivStart );
+			holder = new ViewHolder(vi);
 
 			/************  Set holder with LayoutInflater ************/
 			vi.setTag( holder );
-		} else
+		} else{
 			holder = (ViewHolder) vi.getTag();
+		}
 
 		if( data.size() <= 0 ) {
 			holder.achivName.setText( "No Data" );
 
 		} else {
 			/***** Get each Model object from Arraylist ********/
-			tempValues = null;
-			tempValues = (AchivListModel) data.get( position );
+//			tempValues = null;
+//			tempValues = (AchivListModel) data.get( position );
 
 			/************  Set Model values in Holder elements ***********/
 
+			AchivListModel tempValues= (AchivListModel) data.get( position );
+			
 			holder.achivName.setText( tempValues.getAchivName() );
 			holder.achivDescrip.setText( tempValues.getAchivDescr() );
+			holder.achivStart.setTag( new Integer(position) );
 			holder.achivStart.setOnClickListener( new OnClickListener()
 			{
 
 				@Override
 				public void onClick( View v )
 				{
-					Toast.makeText( inflater.getContext(), "Zacz¹³eœ " + tempValues.getAchivName(), Toast.LENGTH_SHORT )
+					Integer position= (Integer) v.getTag();
+					AchivListModel arch = (AchivListModel) data.get( position );
+					//String x = holder.achivName.getText().toString();
+					Toast.makeText( inflater.getContext(), "Zacz¹³eœ " + arch.getAchivName(), Toast.LENGTH_SHORT )
 							.show();
 				}
 			} );

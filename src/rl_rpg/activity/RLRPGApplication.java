@@ -56,6 +56,12 @@ public class RLRPGApplication extends Application
 					}
 					//
 
+					
+					// 
+					Profil.Manager.update();
+					//
+					
+					
 					Thread.sleep( 100 );
 				}
 			} catch ( Exception e ) {

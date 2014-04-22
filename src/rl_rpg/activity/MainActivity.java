@@ -37,24 +37,9 @@ public class MainActivity extends Activity
 		// funkcja wykonywana automatycznie dla kazdej zmiany zachodzacej w profil
 		public void updateProfil()
 		{
-			nick.setText( getNickLabel() + Profil.getLocal().getNick() );
-			lvl.setText( getLvlLabel() + Profil.getLocal().getLvl() );
-			xp.setText( getXpLabel() + Profil.getLocal().getXp() );
-		}
-
-		private String getNickLabel()
-		{
-			return "NICK: ";
-		}
-
-		private String getLvlLabel()
-		{
-			return "LVL: ";
-		}
-
-		private String getXpLabel()
-		{
-			return "XP: ";
+			nick.setText( "NICK: " + Profil.getLocal().getNick() );
+			lvl.setText( "LVL: " + Profil.getLocal().getLvl() );
+			xp.setText( "XP: " + Profil.getLocal().getXp() );
 		}
 
 		public void setListeners( final Context context )

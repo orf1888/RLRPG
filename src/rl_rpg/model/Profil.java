@@ -15,6 +15,7 @@ public class Profil
 	///
 
 	ArrayList<OnChangeProfilListener> onChangeListeners = new ArrayList<Profil.OnChangeProfilListener>();
+	boolean changed;
 
 	///
 	/// methods
@@ -25,10 +26,12 @@ public class Profil
 		onChangeListeners.add( listener );
 	}
 
+	/*
 	public void update( ProfilDelta d )
 	{
 		raiseOnChanged();
 	}
+	*/
 
 	///
 	/// static methods
@@ -83,6 +86,13 @@ public class Profil
 				local= load();
 			return local;
 		}
+		
+		public static void update(){
+			if( getLocalProfil().changed ){
+				local.changed= false;
+				local.raiseOnChanged();
+			}
+		}
 	}
 
 	///
@@ -97,7 +107,7 @@ public class Profil
 	public void setNick( String nick )
 	{
 		this.nick = nick;
-		raiseOnChanged();
+		this.changed= true;
 	}
 
 	public int getLvl()
@@ -108,7 +118,7 @@ public class Profil
 	public void setLvl( int lvl )
 	{
 		this.lvl = lvl;
-		raiseOnChanged();
+		this.changed= true;
 	}
 
 	public int getXp()
@@ -119,6 +129,6 @@ public class Profil
 	public void setXp( int xp )
 	{
 		this.xp = xp;
-		raiseOnChanged();
+		this.changed= true;
 	}
 }
