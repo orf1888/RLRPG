@@ -13,7 +13,7 @@ public class Profil
 	/// pomocnicze
 	///
 
-	ArrayList<OnChangeProfilListener> onChangeListeners;
+	ArrayList<OnChangeProfilListener> onChangeListeners = new ArrayList<Profil.OnChangeProfilListener>();
 
 	///
 	/// methods
