@@ -1,8 +1,11 @@
 package rl_rpg.activity;
 
+import java.io.IOException;
+
 import rl_rpg.activity.R;
 import rl_rpg.model.Profil;
 import rl_rpg.model.Profil.OnChangeProfilListener;
+import rl_rpg.utils.L;
 
 
 import android.app.Activity;
@@ -44,6 +47,7 @@ public class MainActivity extends Activity
 
 		public void setListeners( final Context context )
 		{
+			
 			/////////////////////////
 			//// onChange
 			Profil.getLocal().addOnChangeListener( new OnChangeProfilListener()
@@ -119,10 +123,34 @@ public class MainActivity extends Activity
 		ekranGlowny.myAccount = (ImageButton) findViewById( R.id.myAcc );
 
 		ekranGlowny.setListeners( getApplicationContext() );
-
-		
 	}
-
+	
+	
+	/**
+	 * wczytujemy zapis stanu
+	 */
+	@Override
+	protected void onPause() {
+		super.onPause();
+		try {
+			RLRPGApplication.performSave();
+		} catch ( IOException e ) {
+			L.log( "Error MainActivity "+e.getMessage() );
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		try {
+			RLRPGApplication.performLoad();
+		} catch ( Exception e ) {
+			L.log( "Error MainActivity "+e.getMessage() );
+			e.printStackTrace();
+		}
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu )
