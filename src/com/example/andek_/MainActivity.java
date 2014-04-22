@@ -1,5 +1,7 @@
 package com.example.andek_;
 
+import com.example.andek_.Profil.OnChangeProfilListener;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -25,12 +27,12 @@ public class MainActivity extends Activity
 		public Button achivments, community;
 		public ImageButton myAccount;
 
-		
+		// funkcja wykonywana automatycznie dla kazdej zmiany zachodzacej w profil
 		public void updateProfil()
 		{
-			nick.setText( getNickLabel() + profil.nick );
-			lvl.setText( getLvlLabel() + profil.lvl );
-			xp.setText( getXpLabel() + profil.xp );
+			nick.setText( getNickLabel() + profil.getNick() );
+			lvl.setText( getLvlLabel() + profil.getLvl() );
+			xp.setText( getXpLabel() + profil.getXp() );
 		}
 
 		private String getNickLabel()
@@ -50,6 +52,19 @@ public class MainActivity extends Activity
 
 		public void setListeners( final Context context )
 		{
+			/////////////////////////
+			//// onChange
+			profil.addOnChangeListener( new OnChangeProfilListener()
+			{
+				@Override
+				public void onChange()
+				{
+					updateProfil();
+				}
+			});
+			
+			/////////////////////////
+			//// onClick
 			achivments.setOnClickListener( new OnClickListener()
 			{
 				@Override
@@ -103,7 +118,7 @@ public class MainActivity extends Activity
 		ekranGlowny.setListeners( getApplicationContext() );
 		
 		/* background */
-		Thread mainThread = new MainThread(this); //new Thread( new MainThread() );
+		Thread mainThread = new Thread(new MainThread(this)); //new Thread( new MainThread() );
 		mainThread.start();
 	}
 
@@ -136,7 +151,7 @@ public class MainActivity extends Activity
 				@Override
 				public void run()
 				{
-					profil.xp++;
+					profil.setXp( profil.getXp() + 1 );
 					ekranGlowny.updateProfil();
 				}
 			} );
