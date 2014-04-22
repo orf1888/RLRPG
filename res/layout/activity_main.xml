@@ -55,10 +55,10 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnAchive"
+        android:id="@+id/btnChallenge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Achivments" />
+        android:text="Challenges" />
 
     <Button
         android:id="@+id/btnCom"

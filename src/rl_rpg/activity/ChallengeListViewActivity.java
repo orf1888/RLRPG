@@ -2,8 +2,8 @@ package rl_rpg.activity;
 
 import java.util.ArrayList;
 
-import rl_rpg.activity.adapter.AchivListAdapter;
-import rl_rpg.model.AchivListModel;
+import rl_rpg.activity.adapter.ChallengeListAdapter;
+import rl_rpg.model.ChallengeListModel;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,13 +13,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class AchivListViewActivity extends Activity
+public class ChallengeListViewActivity extends Activity
 {
 
 	ListView list;
-	AchivListAdapter adapter;
-	public AchivListViewActivity CustomListView = null;
-	public ArrayList<AchivListModel> CustomListViewValuesArr = new ArrayList<AchivListModel>();
+	ChallengeListAdapter adapter;
+	public ChallengeListViewActivity CustomListView = null;
+	public ArrayList<ChallengeListModel> CustomListViewValuesArr = new ArrayList<ChallengeListModel>();
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState )
@@ -27,7 +27,7 @@ public class AchivListViewActivity extends Activity
 
 
 		super.onCreate( savedInstanceState );
-		setContentView( R.layout.achiv_list );
+		setContentView( R.layout.challenge_list );
 
 		CustomListView = this;
 
@@ -38,7 +38,7 @@ public class AchivListViewActivity extends Activity
 		list = (ListView) findViewById( R.id.list ); // List defined in XML ( See Below )
 
 		/**************** Create Custom Adapter *********/
-		adapter = new AchivListAdapter( CustomListView, CustomListViewValuesArr, res );
+		adapter = new ChallengeListAdapter( CustomListView, CustomListViewValuesArr, res );
 		list.setAdapter( adapter );
 
 	}
@@ -49,12 +49,12 @@ public class AchivListViewActivity extends Activity
 
 		for (int i = 0; i < 11; i++) {
 
-			final AchivListModel sched = new AchivListModel();
+			final ChallengeListModel sched = new ChallengeListModel();
 
 			/******* Firstly take data in model object ******/
-			sched.setAchivName( "Achivment" + i );
+			sched.setChallengeName( "Challeng" + i );
 			//sched.setImage( "image" + i );
-			sched.setAchivDescr( "This achivment value is 100 XP" );
+			sched.setChallengeDescr( "This challenge value is 100 XP" );
 
 			/******** Take Model Object in ArrayList **********/
 			CustomListViewValuesArr.add( sched );
@@ -67,11 +67,11 @@ public class AchivListViewActivity extends Activity
 	public void onItemClick( int mPosition )
 	{
 		//adapter.getItem( mPosition )
-		AchivListModel achivment = (AchivListModel) CustomListViewValuesArr.get( mPosition );
+		ChallengeListModel challenge = (ChallengeListModel) CustomListViewValuesArr.get( mPosition );
 		/* Show achivment description */
 		AlertDialog.Builder builder = new AlertDialog.Builder( this );
-		builder.setMessage( "You need to etc.\n" + achivment.getAchivDescr() );
-		builder.setTitle( achivment.getAchivName() );
+		builder.setMessage( "You need to etc.\n" + challenge.getChallengeDescr() );
+		builder.setTitle( challenge.getChallengeName() );
 		/* Dodaæ "Ok" do stringsów */
 		builder.setPositiveButton( "OK", new DialogInterface.OnClickListener()
 		{
