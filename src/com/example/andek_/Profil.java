@@ -2,7 +2,7 @@ package com.example.andek_;
 
 import java.util.ArrayList;
 
-
+//dupa
 public class Profil
 {
 	private String nick;
