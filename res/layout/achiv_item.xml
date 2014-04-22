@@ -7,7 +7,7 @@
      <TableRow>
 
          <LinearLayout
-             android:layout_width="110dp"
+             android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:paddingBottom="5dp"
              android:paddingLeft="10dp"
@@ -15,13 +15,13 @@
 
              <ImageView
                  android:id="@+id/achivImg"
-                 android:layout_width="30dp"
-                 android:layout_height="30dp"
+                 android:layout_width="35dp"
+                 android:layout_height="35dp"
                  android:layout_marginLeft="10dp"
                  android:layout_marginTop="10dp"
                  android:background="@drawable/stick"
                  android:gravity="left"
-                 android:scaleType="centerCrop" />
+                 android:scaleType="center" />
 
          </LinearLayout>
 
@@ -31,49 +31,59 @@
              android:layout_gravity="top"
              android:paddingTop="0dip" >
 
-             <TableRow>
+             <TableRow
+                 android:layout_width="wrap_content"
+                 android:layout_gravity="left"
+                 android:gravity="left"
+                 android:textAlignment="gravity" >
 
                  <TextView
                      android:id="@+id/achivName"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_gravity="right|center_vertical"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layout_gravity="left"
                      android:layout_marginLeft="10dip"
                      android:layout_marginTop="4dip"
                      android:layout_span="1"
                      android:layout_weight="1"
+                     android:gravity="left"
                      android:text="t1"
                      android:textColor="#000000"
-                     android:textSize="16sp" />
+                     android:textSize="24sp" />
+
              </TableRow>
 
-             <TableRow android:id="@+id/tableRow" >
+             <TableRow android:layout_width="wrap_content" >
 
                  <TextView
                      android:id="@+id/achivDesription"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:layout_gravity="right|center_vertical"
+                     android:layout_gravity="left"
                      android:layout_marginLeft="10dip"
                      android:layout_marginTop="4dip"
                      android:layout_weight="1"
                      android:gravity="left"
                      android:text="t2"
                      android:textColor="#000000"
-                     android:textSize="16sp" />
+                     android:textSize="14sp" />
              </TableRow>
          </TableLayout>
 
          <LinearLayout
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content" >
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_gravity="end"
+             android:gravity="right"
+             android:orientation="vertical" >
 
              <Button
                  android:id="@+id/achivStart"
                  style="?android:attr/buttonStyleSmall"
-                 android:layout_width="177dp"
-                 android:layout_height="wrap_content"
-                 android:text="Button" />
+                 android:layout_width="60dp"
+                 android:layout_height="match_parent"
+                 android:layout_gravity="right"
+                 android:text="Start" />
 
          </LinearLayout>
 
