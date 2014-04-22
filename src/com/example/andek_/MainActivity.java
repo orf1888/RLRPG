@@ -56,6 +56,7 @@ public class MainActivity extends Activity
 				@Override
 				public void onClick( View v )
 				{
+					/*Dzia³a?*/
 					Intent intent = new Intent(context, AchivListViewActivity.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					context.startActivity(intent);
