@@ -20,10 +20,6 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity
 {
-	// model
-	static Profil profil;
-
-
 	// widok
 	static class EkranGlowny
 	{
@@ -31,12 +27,19 @@ public class MainActivity extends Activity
 		public Button achivments, community;
 		public ImageButton myAccount;
 
+		Activity parent;
+
+		EkranGlowny( Activity parent )
+		{
+			this.parent = parent;
+		}
+		
 		// funkcja wykonywana automatycznie dla kazdej zmiany zachodzacej w profil
 		public void updateProfil()
 		{
-			nick.setText( getNickLabel() + profil.getNick() );
-			lvl.setText( getLvlLabel() + profil.getLvl() );
-			xp.setText( getXpLabel() + profil.getXp() );
+			nick.setText( getNickLabel() + Profil.getLocal().getNick() );
+			lvl.setText( getLvlLabel() + Profil.getLocal().getLvl() );
+			xp.setText( getXpLabel() + Profil.getLocal().getXp() );
 		}
 
 		private String getNickLabel()
@@ -58,12 +61,19 @@ public class MainActivity extends Activity
 		{
 			/////////////////////////
 			//// onChange
-			profil.addOnChangeListener( new OnChangeProfilListener()
+			Profil.getLocal().addOnChangeListener( new OnChangeProfilListener()
 			{
 				@Override
 				public void onChange()
 				{
-					updateProfil();
+					parent.runOnUiThread( new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							updateProfil();
+						}
+					} );
 				}
 			} );
 
@@ -106,10 +116,11 @@ public class MainActivity extends Activity
 	protected void onCreate( Bundle savedInstanceState )
 	{
 		super.onCreate( savedInstanceState );
+		
+		RLRPGApplication.registerActivity( this );
 
 		/* init */
-		profil = Profil.Manager.load();
-		ekranGlowny = new EkranGlowny();
+		ekranGlowny = new EkranGlowny(this);
 
 		/* init view */
 		setContentView( R.layout.activity_main );
@@ -124,9 +135,7 @@ public class MainActivity extends Activity
 
 		ekranGlowny.setListeners( getApplicationContext() );
 
-		/* background */
-		Thread mainThread = new Thread( new MainThread( this ) ); //new Thread( new MainThread() );
-		mainThread.start();
+		
 	}
 
 
@@ -140,54 +149,6 @@ public class MainActivity extends Activity
 
 
 
-	static public class MainThread extends Thread
-	{
-		static long diff = 2000;
-
-		long lastTime;
-
-		Activity parent;
-
-		MainThread( Activity parent )
-		{
-			this.parent = parent;
-		}
-
-		void upXp()
-		{
-			parent.runOnUiThread( new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					profil.setXp( profil.getXp() + 1 );
-					ekranGlowny.updateProfil();
-				}
-			} );
-		}
-
-		@Override
-		public void run()
-		{
-			lastTime = System.currentTimeMillis();
-
-			try {
-				while ( true ) {
-					long time = System.currentTimeMillis();
-
-					//
-					if( time - lastTime > diff ) {
-						upXp();
-						lastTime = time;
-					}
-					//
-
-					Thread.sleep( 100 );
-				}
-			} catch ( Exception e ) {
-				e.printStackTrace();
-			}
-		}
-	}
+	
 
 }
