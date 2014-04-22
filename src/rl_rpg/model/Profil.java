@@ -3,7 +3,6 @@ package rl_rpg.model;
 import java.util.ArrayList;
 
 
-//dupa 1
 public class Profil
 {
 	private String nick;

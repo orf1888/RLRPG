@@ -9,7 +9,7 @@ public class RLRPGApplication extends Application
 {
 
 	Thread mainThread = null;
-	
+	boolean initialized = false;
 	
 	public static void registerActivity( Activity activity )
 	{
@@ -20,6 +20,14 @@ public class RLRPGApplication extends Application
 	{
 		// aktualnie nic nie robimy z activity.
 		
+		if( !initialized )
+			initApplication();
+	}
+	
+	
+	public void initApplication()
+	{
+		initialized= true;
 		/* background */
 		if( mainThread==null ){
 			mainThread = new Thread( new MainThread() ); //new Thread( new MainThread() );
