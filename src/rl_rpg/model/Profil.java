@@ -25,17 +25,30 @@ public class Profil
 		onChangeListeners.add( listener );
 	}
 
-	private void raiseOnChanged()
-	{
-		for (OnChangeProfilListener listener : onChangeListeners)
-			listener.onChange();
-	}
-
 	public void update( ProfilDelta d )
 	{
 		raiseOnChanged();
 	}
 
+	///
+	/// static methods
+	///
+	
+	public static Profil getLocal()
+	{
+		return Manager.getLocalProfil();
+	}
+	
+	///
+	/// private methods
+	///
+	
+	private void raiseOnChanged()
+	{
+		for (OnChangeProfilListener listener : onChangeListeners)
+			listener.onChange();
+	}
+	
 	///
 	/// classes
 	///
@@ -53,6 +66,8 @@ public class Profil
 
 	public static class Manager
 	{
+		static Profil local = null;
+		
 		public static Profil load()
 		{
 			Profil p = new Profil();
@@ -60,6 +75,13 @@ public class Profil
 			p.lvl = -2;
 			p.xp = 23;
 			return p;
+		}
+		
+		public static Profil getLocalProfil()
+		{
+			if( local==null)
+				local= load();
+			return local;
 		}
 	}
 
@@ -75,6 +97,7 @@ public class Profil
 	public void setNick( String nick )
 	{
 		this.nick = nick;
+		raiseOnChanged();
 	}
 
 	public int getLvl()
@@ -85,6 +108,7 @@ public class Profil
 	public void setLvl( int lvl )
 	{
 		this.lvl = lvl;
+		raiseOnChanged();
 	}
 
 	public int getXp()
@@ -95,5 +119,6 @@ public class Profil
 	public void setXp( int xp )
 	{
 		this.xp = xp;
+		raiseOnChanged();
 	}
 }
