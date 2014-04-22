@@ -53,9 +53,9 @@ public class AchivListViewActivity extends Activity
 			final AchivListModel sched = new AchivListModel();
 
 			/******* Firstly take data in model object ******/
-			sched.setCompanyName( "Company " + i );
-			sched.setImage( "image" + i );
-			sched.setUrl( "http:\\www." + i + ".com" );
+			sched.setAchivName( "Achivment"+i );
+			//sched.setImage( "image" + i );
+			sched.setAchivDescr( "This achivment value is 100 XP" );
 
 			/******** Take Model Object in ArrayList **********/
 			CustomListViewValuesArr.add( sched );
@@ -73,7 +73,7 @@ public class AchivListViewActivity extends Activity
 		// SHOW ALERT                 
 
 		Toast.makeText( CustomListView,
-				"" + tempValues.getCompanyName() + "Image:" + tempValues.getImage() + "Url:" + tempValues.getUrl(),
+				"" + tempValues.getAchivName() +  "Descripion:" + tempValues.getAchivDescr(),
 				Toast.LENGTH_LONG ).show();
 	}
 }

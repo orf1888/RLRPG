@@ -112,10 +112,10 @@ public class AchivListAdapter extends BaseAdapter implements OnClickListener
 
 			/************  Set Model values in Holder elements ***********/
 
-			holder.achivName.setText( tempValues.getCompanyName() );
-			holder.achivDescrip.setText( tempValues.getUrl() );
-			holder.image.setImageResource( res.getIdentifier( "com.androidexample.customlistview:drawable/"
-					+ tempValues.getImage(), null, null ) );
+			holder.achivName.setText( tempValues.getAchivName() );
+			holder.achivDescrip.setText( tempValues.getAchivDescr() );
+			/*holder.image.setImageResource( res.getIdentifier( "com.androidexample.customlistview:drawable/"
+					+ tempValues.getImage(), null, null ) );*/
 
 			/******** Set Item Click Listner for LayoutInflater for each row *******/
 

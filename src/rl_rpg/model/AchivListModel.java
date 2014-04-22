@@ -3,41 +3,40 @@ package rl_rpg.model;
 public class AchivListModel
 {
 
-	private String CompanyName = "";
-	private String Image = "";
-	private String Url = "";
+	private String achivName = "";
+	/* Ka¿dy achiv powinien mieæ swój obrazek w zale¿noœci od grupy do której jest przydzielony */
+	//private String Image = "";
+	private String achivDescr = "";
 
 	/*********** Set Methods ******************/
 
-	public void setCompanyName( String CompanyName )
+	public void setAchivName( String achivName )
 	{
-		this.CompanyName = CompanyName;
+		this.achivName = achivName;
 	}
 
-	public void setImage( String Image )
-	{
-		this.Image = Image;
-	}
+	/*
+	 * public void setImage( String Image ) { this.Image = Image; }
+	 */
 
-	public void setUrl( String Url )
+	public void setAchivDescr( String achivDescr )
 	{
-		this.Url = Url;
+		this.achivDescr = achivDescr;
 	}
 
 	/*********** Get Methods ****************/
 
-	public String getCompanyName()
+	public String getAchivName()
 	{
-		return this.CompanyName;
+		return this.achivName;
 	}
 
-	public String getImage()
-	{
-		return this.Image;
-	}
+	/*
+	 * public String getImage() { return this.Image; }
+	 */
 
-	public String getUrl()
+	public String getAchivDescr()
 	{
-		return this.Url;
+		return this.achivDescr;
 	}
 }
