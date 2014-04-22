@@ -62,8 +62,8 @@ public class MainActivity extends Activity
 				{
 					updateProfil();
 				}
-			});
-			
+			} );
+
 			/////////////////////////
 			//// onClick
 			achivments.setOnClickListener( new OnClickListener()
@@ -71,10 +71,10 @@ public class MainActivity extends Activity
 				@Override
 				public void onClick( View v )
 				{
-					/*Dzia³a?*/
-					Intent intent = new Intent(context, AchivListViewActivity.class);
-					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					context.startActivity(intent);
+					/* Dzia³a? */
+					Intent intent = new Intent( context, AchivListViewActivity.class );
+					intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+					context.startActivity( intent );
 				}
 			} );
 			community.setOnClickListener( new OnClickListener()
@@ -107,7 +107,7 @@ public class MainActivity extends Activity
 		/* init */
 		profil = Profil.Manager.load();
 		ekranGlowny = new EkranGlowny();
-		
+
 		/* init view */
 		setContentView( R.layout.activity_main );
 		ekranGlowny.nick = (TextView) findViewById( R.id.textLblNick );
@@ -120,9 +120,9 @@ public class MainActivity extends Activity
 		ekranGlowny.myAccount = (ImageButton) findViewById( R.id.myAcc );
 
 		ekranGlowny.setListeners( getApplicationContext() );
-		
+
 		/* background */
-		Thread mainThread = new Thread(new MainThread(this)); //new Thread( new MainThread() );
+		Thread mainThread = new Thread( new MainThread( this ) ); //new Thread( new MainThread() );
 		mainThread.start();
 	}
 
@@ -134,22 +134,24 @@ public class MainActivity extends Activity
 		getMenuInflater().inflate( R.menu.main, menu );
 		return true;
 	}
-	
-	
-	
+
+
+
 	static public class MainThread extends Thread
 	{
 		static long diff = 2000;
-		
+
 		long lastTime;
-		
+
 		Activity parent;
-		
-		MainThread( Activity parent ){
-			this.parent= parent;
+
+		MainThread( Activity parent )
+		{
+			this.parent = parent;
 		}
-		
-		void upXp(){
+
+		void upXp()
+		{
 			parent.runOnUiThread( new Runnable()
 			{
 				@Override
@@ -160,24 +162,24 @@ public class MainActivity extends Activity
 				}
 			} );
 		}
-		
+
 		@Override
 		public void run()
 		{
-			lastTime= System.currentTimeMillis();
-			
+			lastTime = System.currentTimeMillis();
+
 			try {
-				while(true){
-					long time= System.currentTimeMillis();
-					
+				while ( true ) {
+					long time = System.currentTimeMillis();
+
 					//
-					if( time-lastTime > diff){
+					if( time - lastTime > diff ) {
 						upXp();
-						lastTime= time;
+						lastTime = time;
 					}
 					//
-					
-					Thread.sleep(100);
+
+					Thread.sleep( 100 );
 				}
 			} catch ( Exception e ) {
 				e.printStackTrace();
