@@ -1,4 +1,4 @@
-package com.example.andek_;
+package rl_rpg.model;
 
 import java.util.ArrayList;
 

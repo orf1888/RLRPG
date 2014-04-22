@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.example.andek_;
+package rl_rpg.activity;
 
 public final class R {
     public static final class attr {

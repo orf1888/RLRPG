@@ -1,6 +1,11 @@
-package com.example.andek_;
+package rl_rpg.activity;
 
 import java.util.ArrayList;
+
+import rl_rpg.activity.R;
+import rl_rpg.activity.adapter.AchivListAdapter;
+import rl_rpg.model.AchivListModel;
+
 
 import android.app.Activity;
 import android.content.res.Resources;

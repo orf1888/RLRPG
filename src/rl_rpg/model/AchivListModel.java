@@ -1,4 +1,4 @@
-package com.example.andek_;
+package rl_rpg.model;
 
 public class AchivListModel
 {

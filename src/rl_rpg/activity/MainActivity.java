@@ -1,6 +1,9 @@
-package com.example.andek_;
+package rl_rpg.activity;
 
-import com.example.andek_.Profil.OnChangeProfilListener;
+import rl_rpg.activity.R;
+import rl_rpg.model.Profil;
+import rl_rpg.model.Profil.OnChangeProfilListener;
+
 
 import android.app.Activity;
 import android.content.Context;
