@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rl_rpg.activity.RLRPGApplication;
+import rl_rpg.activity.RLRPGApplication.LoopListener;
 import rl_rpg.activity.RLRPGApplication.SaveLoadListener;
 import rl_rpg.utils.L;
 import rl_rpg.utils.MapWithDefaults;
@@ -16,6 +17,8 @@ public class Profil
 	/// methods
 	///
 
+	/** korzystamy z tej funkcji, jesli chcemy byc powiadamiani o zmianach zachodz¹cych w profilu,
+	 *  przyklad: UI sie podpina zeby wyswietlac zmiany */
 	public void addOnChangeListener( OnChangeProfilListener listener )
 	{
 		onChangeListeners.add( listener );
@@ -29,6 +32,8 @@ public class Profil
 	/// static methods
 	///
 
+	/** pobiera profil osoby aktualnie korzystaj¹cej z aplikacji
+	 */
 	public static Profil getLocal()
 	{
 		return Manager.getLocalProfil();
@@ -79,7 +84,7 @@ public class Profil
 	}
 
 
-	Object save()
+	private Object save()
 	{
 		Map<String, Object> save = new HashMap<String, Object>( 3 );
 		save.put( "nick", nick );
@@ -88,7 +93,7 @@ public class Profil
 		return save;
 	}
 
-	void load( MapWithDefaults save )
+	private void load( MapWithDefaults save )
 	{
 		nick = (String) save.get( "nick", default_nick );
 		lvl = (int) (Integer) save.get( "lvl", default_lvl );
@@ -102,20 +107,11 @@ public class Profil
 		Profil local = null;
 
 
-		public static Profil getLocalProfil()
+		protected static Profil getLocalProfil()
 		{
 			if( instance().local == null )
 				instance().local = createDefault();
 			return instance().local;
-		}
-
-		public static void update()
-		{
-			Profil local = getLocalProfil();
-			if( local.changed ) {
-				local.changed = false;
-				local.raiseOnChanged();
-			}
 		}
 
 		static Profil createDefault()
@@ -125,22 +121,48 @@ public class Profil
 			return p;
 		}
 
+		//
+		// singleton
+		//
+
 		private static final Manager INSTANCE = new Manager();
 
-		public static Manager instance()
+		static Manager instance()
 		{
 			return INSTANCE;
 		}
 
-
 		private Manager()
 		{
 			RLRPGApplication.addSaveLoadListener( new ProfilSaveLoadListener() );
+			RLRPGApplication.addLoopListener( new ProfilLoopListener() );
+		}
+
+		//
+		// listenery
+		//
+		
+		static class ProfilLoopListener implements LoopListener
+		{
+			@Override
+			public void onTick()
+			{
+				Profil local = getLocalProfil();
+				if( local.changed ) {
+					local.changed = false;
+					local.raiseOnChanged();
+				}
+			}
+
+			@Override
+			public String getNamePrefix()
+			{
+				return "Profil";
+			}
 		}
 
 		static class ProfilSaveLoadListener implements SaveLoadListener
 		{
-
 			@Override
 			public Map<String, Object> onSave()
 			{

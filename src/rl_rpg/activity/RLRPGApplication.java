@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rl_rpg.model.Profil;
+import rl_rpg.model.Profil.Manager;
 import rl_rpg.utils.L;
 import rl_rpg.utils.MapWithDefaults;
 import android.app.Activity;
@@ -24,7 +25,8 @@ public class RLRPGApplication extends Application
 {
 	Thread mainThread = null;
 	boolean initialized = false;
-	static Map<String, SaveLoadListener> saveLoadListeners;
+	
+	private static final Map<String, SaveLoadListener> saveLoadListeners = new HashMap<String, SaveLoadListener>();
 
 	//
 	// public methods
@@ -38,8 +40,6 @@ public class RLRPGApplication extends Application
 
 	public static void addSaveLoadListener( SaveLoadListener listener )
 	{
-		if( saveLoadListeners == null )
-			saveLoadListeners = new HashMap<String, SaveLoadListener>();
 		saveLoadListeners.put( listener.getNamePrefix(), listener );
 	}
 
@@ -109,6 +109,7 @@ public class RLRPGApplication extends Application
 		/* background */
 		if( mainThread == null ) {
 			mainThread = new Thread( new MainThread() ); //new Thread( new MainThread() );
+			L.log("new mainThread");
 			mainThread.start();
 		}
 	}
@@ -122,8 +123,23 @@ public class RLRPGApplication extends Application
 
 		String getNamePrefix();
 	}
+	
+	static public interface LoopListener
+	{
+		void onTick();
+
+		String getNamePrefix();
+	}
 
 
+	private static final Map<String, LoopListener> loopListeners = new HashMap<String, LoopListener>();
+	
+	
+	public static void addLoopListener( LoopListener listener )
+	{
+		loopListeners.put( listener.getNamePrefix(), listener );
+	}
+	
 	static public class MainThread extends Thread
 	{
 		static long diff = 2000;
@@ -153,14 +169,17 @@ public class RLRPGApplication extends Application
 
 
 					// 
-					Profil.Manager.update();
+					Map<String, Map> maps = new HashMap<String, Map>();
+					for (LoopListener listener : loopListeners.values())
+						listener.onTick();
+					//Profil.Manager.update();
 					//
 
 
 					Thread.sleep( 100 );
 				}
 			} catch ( Exception e ) {
-				e.printStackTrace();
+				L.logError( e );
 			}
 		}
 	}
