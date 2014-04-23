@@ -1,5 +1,6 @@
 package rl_rpg.activity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import rl_rpg.activity.adapter.SkillsListAdapter;
 import rl_rpg.model.Profil;
 import rl_rpg.model.Skill;
 import rl_rpg.utils.DialogBuilder;
+import rl_rpg.utils.L;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -21,8 +23,10 @@ import android.widget.TextView;
 
 public class MyAccountActivity extends Activity
 {
+	static ProfilWidget ekranProfil;
+	
 	ProgressBar p1, p2, p3;
-	TextView nick, lvl, xp;
+	//TextView nick, lvl, xp;
 	/* Skills list */
 	ListView list;
 	SkillsListAdapter adapter;
@@ -31,14 +35,17 @@ public class MyAccountActivity extends Activity
 	@Override
 	protected void onCreate( Bundle savedInstanceState )
 	{
-
 		super.onCreate( savedInstanceState );
+		
+		ekranProfil = new ProfilWidget( this, false );
+		
 		setContentView( R.layout.activity_my_account );
 
-		nick = (TextView) findViewById( R.id.textMyAccNick );
-		lvl = (TextView) findViewById( R.id.textMyAccLvl );
-		xp = (TextView) findViewById( R.id.textMyAccXp );
-		updateProfil();
+		ekranProfil.nick = (TextView) findViewById( R.id.textMyAccNick );
+		ekranProfil.lvl = (TextView) findViewById( R.id.textMyAccLvl );
+		ekranProfil.xp = (TextView) findViewById( R.id.textMyAccXp );
+		ekranProfil.updateProfil();
+		
 		/* Skill list init */
 		CustomListViewValuesArr = new ArrayList<Skill>();
 		Resources res = getResources();
@@ -48,9 +55,30 @@ public class MyAccountActivity extends Activity
 		setListData();
 		list = (ListView) findViewById( R.id.skillsList );
 		list.setAdapter( adapter );
-
 	}
 
+	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		ekranProfil.dropListeners();
+		
+		try {
+			RLRPGApplication.performSave();
+		} catch ( IOException e ) {
+			L.logError( e );
+		}
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		ekranProfil.setListeners();
+		ekranProfil.updateProfil();
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu )
@@ -58,13 +86,6 @@ public class MyAccountActivity extends Activity
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate( R.menu.my_account, menu );
 		return true;
-	}
-
-	public void updateProfil()
-	{
-		nick.setText( "NICK: " + Profil.getLocal().getNick() );
-		lvl.setText( "LVL: " + Profil.getLocal().getLvl() );
-		xp.setText( "XP: " + Profil.getLocal().getXp() );
 	}
 
 	public void setListData()
