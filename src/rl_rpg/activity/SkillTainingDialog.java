@@ -21,6 +21,7 @@ public class SkillTainingDialog extends AlertDialog
 		super( context );
 		builder = new Builder( context );
 		skillImproveValue = new EditText( context );
+		skillImproveValue.setHint( "Enter the value" );
 	}
 
 	@SuppressLint("NewApi")
@@ -36,8 +37,17 @@ public class SkillTainingDialog extends AlertDialog
 			public void onClick( DialogInterface dialog, int which )
 			{
 				/* Tu narazie prowizoryczna funkcja */
+				int skillXP=0;
+				try {
+					skillXP=Integer.parseInt( skillImproveValue.getText().toString());
+				} catch ( Exception e ) {
+					Toast.makeText( builder.getContext(),
+							"You fucked up so simple thing! You are so fucking idot:D",
+							Toast.LENGTH_LONG).show();
+					return;
+				}
 				Toast.makeText( builder.getContext(),
-						"You increase " + skillName + " lvl by " + skillImproveValue.getText().toString() + " points!",
+						"You increase " + skillName + " lvl by " + skillXP + " points!",
 						Toast.LENGTH_SHORT ).show();
 
 			}

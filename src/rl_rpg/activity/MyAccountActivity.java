@@ -97,10 +97,10 @@ public class MyAccountActivity extends Activity
 			public void onClick( DialogInterface dialog, int id )
 			{
 				SkillTainingDialog improveDialog=new SkillTainingDialog( MyAccountActivity.this);
-				improveDialog.buildDialog( skill.getSkillName(), skill.getSkillDescr() );
+				improveDialog.buildDialog( skill.getSkillName(), "How meny lines of code did you wrote today?");
 			}
 		} );
-		builder.setNegativeButton( "OK", new DialogInterface.OnClickListener()
+		builder.setNegativeButton( "Back", new DialogInterface.OnClickListener()
 		{
 			public void onClick( DialogInterface dialog, int id )
 			{
