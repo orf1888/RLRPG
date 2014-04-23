@@ -147,7 +147,7 @@ public class Profil
 				Map<String, Object> save = new HashMap<String, Object>( 1 );
 				Profil local = Manager.getLocalProfil();
 				save.put( "local", local.save() );
-				
+
 				return save;
 			}
 
@@ -155,7 +155,7 @@ public class Profil
 			public void onLoad( MapWithDefaults save )
 			{
 				Profil local = Manager.getLocalProfil();
-				local.load( save.getMap( "local" ));
+				local.load( save.getMap( "local" ) );
 				///
 				++local.lvl;
 				///

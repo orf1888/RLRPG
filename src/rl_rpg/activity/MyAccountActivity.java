@@ -23,7 +23,6 @@ public class MyAccountActivity extends Activity
 	/* Skills list */
 	ListView list;
 	SkillsListAdapter adapter;
-	public SkillsListViewActivity CustomListView = null;
 	public ArrayList<SkillListModel> CustomListViewValuesArr;
 
 	@Override
@@ -32,7 +31,7 @@ public class MyAccountActivity extends Activity
 
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_my_account );
-		
+
 		nick = (TextView) findViewById( R.id.textMyAccNick );
 		lvl = (TextView) findViewById( R.id.textMyAccLvl );
 		xp = (TextView) findViewById( R.id.textMyAccXp );
@@ -41,7 +40,7 @@ public class MyAccountActivity extends Activity
 		CustomListViewValuesArr = new ArrayList<SkillListModel>();
 		Resources res = getResources();
 		adapter = new SkillsListAdapter( this, CustomListViewValuesArr, res );
-		
+
 		list = (ListView) findViewById( R.id.skillsList );
 		setListData();
 		list = (ListView) findViewById( R.id.skillsList );

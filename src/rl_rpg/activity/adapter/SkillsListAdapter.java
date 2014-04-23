@@ -2,10 +2,8 @@ package rl_rpg.activity.adapter;
 
 import java.util.ArrayList;
 
-import rl_rpg.activity.ChallengeListViewActivity;
 import rl_rpg.activity.MyAccountActivity;
 import rl_rpg.activity.R;
-import rl_rpg.activity.SkillsListViewActivity;
 import rl_rpg.model.SkillListModel;
 import android.app.Activity;
 import android.content.Context;
@@ -61,7 +59,7 @@ public class SkillsListAdapter extends BaseAdapter implements OnClickListener
 	{
 		ViewHolder( View viev )
 		{
-			skillName = (TextView) viev.findViewById( R.id.textSkillName);
+			skillName = (TextView) viev.findViewById( R.id.textSkillName );
 			skillValue = (ProgressBar) viev.findViewById( R.id.progSkill );
 		}
 

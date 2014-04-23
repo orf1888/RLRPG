@@ -29,7 +29,7 @@ public class ChallengeListAdapter extends BaseAdapter implements OnClickListener
 	private ArrayList data;
 	private static LayoutInflater inflater = null;
 	public Resources res;
-//	AchivListModel tempValues = null;
+	//	AchivListModel tempValues = null;
 	int i = 0;
 
 	/*************  CustomAdapter Constructor *****************/
@@ -68,12 +68,14 @@ public class ChallengeListAdapter extends BaseAdapter implements OnClickListener
 	/********* Create a holder Class to contain inflated xml file elements *********/
 	public static class ViewHolder
 	{
-		ViewHolder(View viev){
+		ViewHolder( View viev )
+		{
 			challengeName = (TextView) viev.findViewById( R.id.challengeName );
 			challengeDescrip = (TextView) viev.findViewById( R.id.challengeDesription );
 			image = (ImageView) viev.findViewById( R.id.challengeImg );
 			challengeStart = (Button) viev.findViewById( R.id.challengeStart );
 		}
+
 		public TextView challengeName;
 		public TextView challengeDescrip;
 		//public TextView textWide;
@@ -95,11 +97,11 @@ public class ChallengeListAdapter extends BaseAdapter implements OnClickListener
 			vi = inflater.inflate( R.layout.challenge_item, null );
 
 			/****** View Holder Object to contain tabitem.xml file elements ******/
-			holder = new ViewHolder(vi);
+			holder = new ViewHolder( vi );
 
 			/************  Set holder with LayoutInflater ************/
 			vi.setTag( holder );
-		} else{
+		} else {
 			holder = (ViewHolder) vi.getTag();
 		}
 
@@ -108,23 +110,23 @@ public class ChallengeListAdapter extends BaseAdapter implements OnClickListener
 
 		} else {
 			/***** Get each Model object from Arraylist ********/
-//			tempValues = null;
-//			tempValues = (AchivListModel) data.get( position );
+			//			tempValues = null;
+			//			tempValues = (AchivListModel) data.get( position );
 
 			/************  Set Model values in Holder elements ***********/
 
-			ChallengeListModel tempValues= (ChallengeListModel) data.get( position );
-			
+			ChallengeListModel tempValues = (ChallengeListModel) data.get( position );
+
 			holder.challengeName.setText( tempValues.getChallengeName() );
 			holder.challengeDescrip.setText( tempValues.getChallengeDescr() );
-			holder.challengeStart.setTag( new Integer(position) );
+			holder.challengeStart.setTag( new Integer( position ) );
 			holder.challengeStart.setOnClickListener( new OnClickListener()
 			{
 
 				@Override
 				public void onClick( View v )
 				{
-					Integer position= (Integer) v.getTag();
+					Integer position = (Integer) v.getTag();
 					ChallengeListModel arch = (ChallengeListModel) data.get( position );
 					//String x = holder.challengeName.getText().toString();
 					Toast.makeText( inflater.getContext(), "Zacz¹³eœ " + arch.getChallengeName(), Toast.LENGTH_SHORT )

@@ -13,9 +13,9 @@ public class MapWithDefaults
 
 	public static MapWithDefaults defaults()
 	{
-		return new MapWithDefaults(null);
+		return new MapWithDefaults( null );
 	}
-	
+
 	public MapWithDefaults( Object map )
 	{
 		this.map = (Map) map;
@@ -30,13 +30,13 @@ public class MapWithDefaults
 			return result;
 		//else
 		if( map != null )
-			L.log( "MapWithDefaults: klucz \'"+key+"\' pusty, uzywam default value: "+deflt  );
+			L.log( "MapWithDefaults: klucz \'" + key + "\' pusty, uzywam default value: " + deflt );
 		return deflt;
 	}
-	
+
 	public MapWithDefaults getMap( String key )
 	{
 		Map result = (Map) map.get( key );
-		return new MapWithDefaults(result);
+		return new MapWithDefaults( result );
 	}
 }
