@@ -7,21 +7,11 @@ import java.util.Map;
 import rl_rpg.activity.RLRPGApplication;
 import rl_rpg.activity.RLRPGApplication.SaveLoadListener;
 import rl_rpg.utils.L;
+import rl_rpg.utils.MapWithDefaults;
 
 
 public class Profil
 {
-	private String nick;
-	private int lvl;
-	private int xp;
-
-	///
-	/// pomocnicze
-	///
-
-	ArrayList<OnChangeProfilListener> onChangeListeners = new ArrayList<Profil.OnChangeProfilListener>();
-	boolean changed;
-
 	///
 	/// methods
 	///
@@ -55,10 +45,30 @@ public class Profil
 	}
 
 	///
+	/// model
+	///
+
+	private String nick;
+	private int lvl;
+	private int xp;
+
+	///
+	/// pomocnicze zmienne
+	///
+
+	ArrayList<OnChangeProfilListener> onChangeListeners = new ArrayList<Profil.OnChangeProfilListener>();
+	boolean changed;
+
+	private final String default_nick = "x1";
+	private final int default_lvl = 20;
+	private final int default_xp = 0;
+
+
+	///
 	/// classes
 	///
 
-	public static class ProfilDelta
+	public static class _ProfilDelta
 	{
 
 	}
@@ -66,6 +76,24 @@ public class Profil
 	public static interface OnChangeProfilListener
 	{
 		public void onChange();
+	}
+
+
+	Object save()
+	{
+		Map<String, Object> save = new HashMap<String, Object>( 3 );
+		save.put( "nick", nick );
+		save.put( "lvl", lvl );
+		save.put( "xp", xp );
+		return save;
+	}
+
+	void load( MapWithDefaults save )
+	{
+		nick = (String) save.get( "nick", default_nick );
+		lvl = (int) (Integer) save.get( "lvl", default_lvl );
+		xp = (int) (Integer) save.get( "xp", default_xp );
+		changed = true;
 	}
 
 
@@ -93,24 +121,19 @@ public class Profil
 		static Profil createDefault()
 		{
 			Profil p = new Profil();
-			p.nick = "x";
-			p.lvl = 1;
-			p.xp = 0;
-			p.changed = true;
+			p.load( MapWithDefaults.defaults() );
 			return p;
 		}
 
-		static Manager _instance = null;
+		private static final Manager INSTANCE = new Manager();
 
-		static Manager instance()
+		public static Manager instance()
 		{
-			if( _instance == null ) {
-				_instance = new Manager();
-			}
-			return _instance;
+			return INSTANCE;
 		}
 
-		Manager()
+
+		private Manager()
 		{
 			RLRPGApplication.addSaveLoadListener( new ProfilSaveLoadListener() );
 		}
@@ -121,22 +144,18 @@ public class Profil
 			@Override
 			public Map<String, Object> onSave()
 			{
-				Map<String, Object> save = new HashMap<String, Object>();
+				Map<String, Object> save = new HashMap<String, Object>( 1 );
 				Profil local = Manager.getLocalProfil();
-				save.put( "local_nick", local.nick );
-				save.put( "local_lvl", local.lvl );
-				save.put( "local_xp", local.xp );
+				save.put( "local", local.save() );
+				
 				return save;
 			}
 
 			@Override
-			public void onLoad( Map<String, Object> save )
+			public void onLoad( MapWithDefaults save )
 			{
 				Profil local = Manager.getLocalProfil();
-				local.nick = (String) save.get( "local_nick" );
-				local.lvl = (int) (Integer) save.get( "local_lvl" );
-				local.xp = (int) (Integer) save.get( "local_xp" );
-				local.changed = true;
+				local.load( save.getMap( "local" ));
 				///
 				++local.lvl;
 				///

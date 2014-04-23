@@ -13,6 +13,7 @@ import java.util.Map;
 
 import rl_rpg.model.Profil;
 import rl_rpg.utils.L;
+import rl_rpg.utils.MapWithDefaults;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Environment;
@@ -83,7 +84,7 @@ public class RLRPGApplication extends Application
 			SaveLoadListener listener = saveLoadListeners.get( key );
 			if( listener == null )
 				continue;
-			listener.onLoad( (Map) maps.get( key ) );
+			listener.onLoad( new MapWithDefaults( maps.get( key ) ) );
 		}
 	}
 
@@ -117,7 +118,7 @@ public class RLRPGApplication extends Application
 	{
 		Map<String, Object> onSave();
 
-		void onLoad( Map<String, Object> map );
+		void onLoad( MapWithDefaults map );
 
 		String getNamePrefix();
 	}
