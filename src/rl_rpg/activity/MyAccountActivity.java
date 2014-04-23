@@ -91,8 +91,7 @@ public class MyAccountActivity extends Activity
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				SkillTainingDialog improveDialog=new SkillTainingDialog( MyAccountActivity.this, skill.getName(), "How many lines of code did you wrote today?", null, null, "Submit", "Back", new EditText( MyAccountActivity.this ) );
-				improveDialog.showDialog();
-				
+				improveDialog.showDialog();	
 			}
 		};
 		DialogBuilder dialog=new DialogBuilder(MyAccountActivity.this, skill.getName(), skill.getDescr(), trainListener, returnListener, "Train", "Back");
