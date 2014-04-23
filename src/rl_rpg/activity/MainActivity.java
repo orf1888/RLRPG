@@ -137,8 +137,7 @@ public class MainActivity extends Activity
 		try {
 			RLRPGApplication.performSave();
 		} catch ( IOException e ) {
-			L.log( "Error MainActivity " + e.getMessage() );
-			e.printStackTrace();
+			L.logError( e );
 		}
 	}
 
@@ -149,8 +148,7 @@ public class MainActivity extends Activity
 		try {
 			RLRPGApplication.performLoad();
 		} catch ( Exception e ) {
-			L.log( "Error MainActivity " + e.getMessage() );
-			e.printStackTrace();
+			L.logError( e );
 		}
 	}
 
@@ -158,9 +156,14 @@ public class MainActivity extends Activity
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu )
 	{
+		try{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate( R.menu.main, menu );
 		return true;
+		} catch ( Exception e ) {
+			L.logError( e );
+			return false;
+		}
 	}
 
 

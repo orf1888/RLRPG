@@ -1,10 +1,11 @@
 package rl_rpg.activity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import rl_rpg.activity.adapter.SkillsListAdapter;
 import rl_rpg.model.Profil;
-import rl_rpg.model.SkillListModel;
+import rl_rpg.model.Skill;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -24,7 +25,7 @@ public class MyAccountActivity extends Activity
 	/* Skills list */
 	ListView list;
 	SkillsListAdapter adapter;
-	public ArrayList<SkillListModel> CustomListViewValuesArr;
+	public ArrayList<Skill> CustomListViewValuesArr;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState )
@@ -38,7 +39,7 @@ public class MyAccountActivity extends Activity
 		xp = (TextView) findViewById( R.id.textMyAccXp );
 		updateProfil();
 		/* Skill list init */
-		CustomListViewValuesArr = new ArrayList<SkillListModel>();
+		CustomListViewValuesArr = new ArrayList<Skill>();
 		Resources res = getResources();
 		adapter = new SkillsListAdapter( this, CustomListViewValuesArr, res );
 
@@ -67,26 +68,15 @@ public class MyAccountActivity extends Activity
 
 	public void setListData()
 	{
-		SkillListModel superSkill = new SkillListModel();
-		superSkill.setSkillName( "Coding");
-		superSkill.setSkillDescr( "In this skill you should write a lot of lines of code;)" );
-		CustomListViewValuesArr.add( superSkill );
-		for (int i = 1; i < 22; i++) {
-			final SkillListModel skill = new SkillListModel();
-
-			/* Set model data */
-			skill.setSkillName( "Skill " + i );
-			skill.setSkillDescr( "This skill... Tu generalnie powinieen byæ opis zasysany z DB" );
-			int prog = 0 + (int) (Math.random() * 100);
-			skill.setSkillValue( prog );
-			/* Add object */
-			CustomListViewValuesArr.add( skill );
+		List<Skill> skills = Profil.getLocal().getSkills();
+		for( Skill s : skills ){
+			CustomListViewValuesArr.add( s );
 		}
 	}
 
 	public void onItemClick( int itemPos )
 	{
-		final SkillListModel skill = (SkillListModel) CustomListViewValuesArr.get( itemPos );
+		final Skill skill = (Skill) CustomListViewValuesArr.get( itemPos );
 		/* After click dialog */
 		AlertDialog.Builder builder = new AlertDialog.Builder( this );
 		builder.setMessage( skill.getSkillDescr() );
