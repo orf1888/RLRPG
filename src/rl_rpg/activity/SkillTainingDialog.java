@@ -1,0 +1,56 @@
+package rl_rpg.activity;
+
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+public class SkillTainingDialog extends AlertDialog
+{
+	static Builder builder;
+	static EditText skillImproveValue;
+
+	public SkillTainingDialog( Context context )
+	{
+		super( context );
+		builder = new Builder( context );
+		skillImproveValue = new EditText( context );
+	}
+
+	@SuppressLint("NewApi")
+	public static void buildDialog( final String skillName, String skillImproveMissionText )
+	{
+		builder.setMessage( skillImproveMissionText );
+		builder.setTitle( skillName );
+		builder.setView( skillImproveValue );
+		builder.setPositiveButton( "Submit", new OnClickListener()
+		{
+
+			@Override
+			public void onClick( DialogInterface dialog, int which )
+			{
+				/* Tu narazie prowizoryczna funkcja */
+				Toast.makeText( builder.getContext(),
+						"You increase " + skillName + " lvl by " + skillImproveValue.getText().toString() + " points!",
+						Toast.LENGTH_SHORT ).show();
+
+			}
+		} );
+		builder.setNegativeButton( "Back", new OnClickListener()
+		{
+
+			@Override
+			public void onClick( DialogInterface dialog, int which )
+			{
+				return;
+			}
+		} );
+		builder.show();
+	}
+}

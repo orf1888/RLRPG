@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.Window;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -66,7 +67,11 @@ public class MyAccountActivity extends Activity
 
 	public void setListData()
 	{
-		for (int i = 0; i < 22; i++) {
+		SkillListModel superSkill = new SkillListModel();
+		superSkill.setSkillName( "Coding");
+		superSkill.setSkillDescr( "In this skill you should write a lot of lines of code;)" );
+		CustomListViewValuesArr.add( superSkill );
+		for (int i = 1; i < 22; i++) {
 			final SkillListModel skill = new SkillListModel();
 
 			/* Set model data */
@@ -81,13 +86,21 @@ public class MyAccountActivity extends Activity
 
 	public void onItemClick( int itemPos )
 	{
-		SkillListModel skill = (SkillListModel) CustomListViewValuesArr.get( itemPos );
+		final SkillListModel skill = (SkillListModel) CustomListViewValuesArr.get( itemPos );
 		/* After click dialog */
 		AlertDialog.Builder builder = new AlertDialog.Builder( this );
 		builder.setMessage( skill.getSkillDescr() );
 		builder.setTitle( skill.getSkillName() );
 		/* Dodaæ "Ok" do stringsów */
-		builder.setPositiveButton( "OK", new DialogInterface.OnClickListener()
+		builder.setPositiveButton( "Train", new DialogInterface.OnClickListener()
+		{
+			public void onClick( DialogInterface dialog, int id )
+			{
+				SkillTainingDialog improveDialog=new SkillTainingDialog( MyAccountActivity.this);
+				improveDialog.buildDialog( skill.getSkillName(), skill.getSkillDescr() );
+			}
+		} );
+		builder.setNegativeButton( "OK", new DialogInterface.OnClickListener()
 		{
 			public void onClick( DialogInterface dialog, int id )
 			{
