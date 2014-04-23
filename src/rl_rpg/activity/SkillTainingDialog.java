@@ -1,5 +1,6 @@
 package rl_rpg.activity;
 
+import rl_rpg.utils.DialogBuilder;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,9 +12,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class SkillTainingDialog extends AlertDialog
+public class SkillTainingDialog extends DialogBuilder
 {
-	static Builder builder;
+	static EditText skillImproveValue;
+	
+	public SkillTainingDialog( Context context, String title, String message, OnClickListener posButListener,
+			OnClickListener negButListener, String posButtonText, String negButtonText )
+	{
+		super( context, title, message, posButListener, negButListener, posButtonText, negButtonText );
+		skillImproveValue = new EditText( context );
+		skillImproveValue.setHint( "Enter the value" );
+	}
+	/*static Builder builder;
 	static EditText skillImproveValue;
 
 	public SkillTainingDialog( Context context )
@@ -36,7 +46,7 @@ public class SkillTainingDialog extends AlertDialog
 			@Override
 			public void onClick( DialogInterface dialog, int which )
 			{
-				/* Tu narazie prowizoryczna funkcja */
+				 Tu narazie prowizoryczna funkcja 
 				int skillXP=0;
 				try {
 					skillXP=Integer.parseInt( skillImproveValue.getText().toString());
@@ -62,5 +72,5 @@ public class SkillTainingDialog extends AlertDialog
 			}
 		} );
 		builder.show();
-	}
+	}*/
 }
