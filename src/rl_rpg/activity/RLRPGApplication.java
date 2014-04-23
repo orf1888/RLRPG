@@ -67,7 +67,7 @@ public class RLRPGApplication extends Application
 	}
 
 
-	public static void performLoad() throws IOException, ClassNotFoundException
+	public static void performLoad() throws Exception
 	{
 		L.log( "performLoad" );
 		File file = getSaveFile();
@@ -77,8 +77,15 @@ public class RLRPGApplication extends Application
 		}
 		FileInputStream stream = new FileInputStream( file );
 		ObjectInputStream s = new ObjectInputStream( stream );
-		HashMap<String, Object> maps = (HashMap<String, Object>) s.readObject();
-		s.close();
+		HashMap<String, Object> maps = null;
+		try{
+			maps= (HashMap<String, Object>) s.readObject();
+		}catch(Exception e){
+			L.logError( e );
+			throw e;
+		}finally{
+			s.close();
+		}
 
 		for (String key : maps.keySet()) {
 			SaveLoadListener listener = saveLoadListeners.get( key );

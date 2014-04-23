@@ -103,22 +103,39 @@ public class Profil
 	}
 
 
-	private Object save()
+	Object save()
 	{
-		Map<String, Object> save = new HashMap<String, Object>( 3 );
+		Map<String, Object> save = new HashMap<String, Object>( 4+skills.size() );
 		save.put( "nick", nick );
 		save.put( "lvl", lvl );
 		save.put( "xp", xp );
-		save.put( "skills", skills );
+		save.put( "skills_size", skills.size() );
+		for(int i=0; i<skills.size(); ++i){
+			save.put( "skills_"+i, skills.get( i ).save() );
+		}
 		return save;
 	}
 
-	private void load( MapWithDefaults save )
+	void load( MapWithDefaults save )
 	{
 		nick = (String) save.get( "nick", default_nick );
 		lvl = (int) (Integer) save.get( "lvl", default_lvl );
 		xp = (int) (Integer) save.get( "xp", default_xp );
-		skills = (List) save.get( "skills", default_skills );
+		
+		int skills_count = (int) (Integer) save.get( "skills_size", 0 );
+		if( skills_count > 0 ){
+			skills.clear();
+			for(int i=0; i<skills_count; ++i){
+				Object skill_save = save.get( "skills_"+i, null );
+				Skill skill = null;
+				if( skill_save!=null )
+					skill= Skill.loadOrNull( new MapWithDefaults( skill_save ) );
+				if( skill != null )
+					skills.add( skill );
+			}
+		}else{
+			skills = (List<Skill>) ((ArrayList)default_skills).clone();
+		}
 		changed = true;
 	}
 
