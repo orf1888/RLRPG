@@ -85,6 +85,7 @@ public class PlayersListAdapter extends BaseAdapter implements OnClickListener {
 			Player tempValues = (Player) data.get(position);
 			/* Set data on screen */
 			holder.playerName.setText(tempValues.getNick());
+			holder.showAcc.setTag(position);
 			holder.showAcc.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -93,7 +94,7 @@ public class PlayersListAdapter extends BaseAdapter implements OnClickListener {
 					Integer position = (Integer) v.getTag();
 					Player play = (Player) data.get( position );
 					
-					Toast.makeText( inflater.getContext(), "Zacz¹³eœ " + play.getNick(), Toast.LENGTH_SHORT )
+					Toast.makeText( inflater.getContext(), "Klikn¹³eœ " + play.getNick(), Toast.LENGTH_SHORT )
 					.show();
 				}
 			});

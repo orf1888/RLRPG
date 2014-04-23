@@ -1,8 +1,12 @@
 package rl_rpg.activity;
 
+import rl_rpg.utils.Utils;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -21,6 +25,14 @@ public class CommunityActivity extends Activity {
 		onlPlayers=(TextView) findViewById(R.id.textCommOnlPlay);
 		onlFriends=(TextView) findViewById(R.id.textCommOnlFrie);
 		friend=(Button) findViewById(R.id.btnFriend);
+		Context context=getApplicationContext();
+		friend.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Utils.startNewActivity(CommunityActivity.this, PlayerListViewActivity.class);
+			}
+		});
 		searchPlayer=(Button) findViewById(R.id.btnSearchPlay);
 	}
 

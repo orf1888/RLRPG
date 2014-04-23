@@ -1,15 +1,48 @@
 package rl_rpg.activity;
 
+import java.util.ArrayList;
+
+import rl_rpg.activity.adapter.ChallengeListAdapter;
+import rl_rpg.activity.adapter.PlayersListAdapter;
+import rl_rpg.model.ChallengeListModel;
+import rl_rpg.model.Player;
+import rl_rpg.utils.DialogBuilder;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.res.Resources;
 import android.view.Menu;
+import android.widget.ListView;
 
 public class PlayerListViewActivity extends Activity {
+
+	ListView list;
+	PlayersListAdapter adapter;
+	public PlayerListViewActivity PlayerListView = null;
+	public ArrayList<Player> playersArr = new ArrayList<Player>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.players_list);
+
+		PlayerListView=this;
+		setListData();
+		Resources res = getResources();
+		list = (ListView) findViewById(R.id.playersList); // List defined in XML
+															// ( See
+		adapter = new PlayersListAdapter(PlayerListView, playersArr, res);
+		list.setAdapter(adapter);
+	}
+
+	public void setListData() {
+
+		for (int i = 0; i < 11; i++) {
+
+			final Player player = new Player();
+			player.setNick("Player " + i);
+			playersArr.add(player);
+		}
+
 	}
 
 	@Override
