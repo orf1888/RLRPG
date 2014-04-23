@@ -1,18 +1,38 @@
 package rl_rpg.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import rl_rpg.activity.RLRPGApplication;
 import rl_rpg.activity.RLRPGApplication.LoopListener;
 import rl_rpg.activity.RLRPGApplication.SaveLoadListener;
+import rl_rpg.model.Skill.SkillType;
 import rl_rpg.utils.L;
 import rl_rpg.utils.MapWithDefaults;
 
 
 public class Profil
 {
+	///
+	/// model
+	///
+
+	private String nick;
+	private int lvl;
+	private int xp;
+	private List<Skill> skills;
+
+	public void addXp( int value )
+	{
+		L._assert( value > 0 );
+		xp += value;
+		this.changed = true;
+	}
+
 	///
 	/// methods
 	///
@@ -50,14 +70,6 @@ public class Profil
 	}
 
 	///
-	/// model
-	///
-
-	private String nick;
-	private int lvl;
-	private int xp;
-
-	///
 	/// pomocnicze zmienne
 	///
 
@@ -67,7 +79,14 @@ public class Profil
 	private final String default_nick = "x1";
 	private final int default_lvl = 20;
 	private final int default_xp = 0;
-
+	private final List<Skill> default_skills = new ArrayList<Skill>(
+			Arrays.asList( Skill.Manager.createSkill( SkillType.DoingNothing ),
+					Skill.Manager.createSkill( SkillType.Coding ),
+					Skill.Manager.createSkill( SkillType.Test1 ),
+					Skill.Manager.createSkill( SkillType.Test2 ),
+					Skill.Manager.createSkill( SkillType.Test1 ),
+					Skill.Manager.createSkill( SkillType.Test1 ),
+					Skill.Manager.createSkill( SkillType.Test1 )));
 
 	///
 	/// classes
@@ -90,6 +109,7 @@ public class Profil
 		save.put( "nick", nick );
 		save.put( "lvl", lvl );
 		save.put( "xp", xp );
+		save.put( "skills", skills );
 		return save;
 	}
 
@@ -98,6 +118,7 @@ public class Profil
 		nick = (String) save.get( "nick", default_nick );
 		lvl = (int) (Integer) save.get( "lvl", default_lvl );
 		xp = (int) (Integer) save.get( "xp", default_xp );
+		skills = (List) save.get( "skills", default_skills );
 		changed = true;
 	}
 
@@ -141,7 +162,7 @@ public class Profil
 		//
 		// listenery
 		//
-		
+
 		static class ProfilLoopListener implements LoopListener
 		{
 			@Override
@@ -200,21 +221,9 @@ public class Profil
 		return nick;
 	}
 
-	public void setNick( String nick )
-	{
-		this.nick = nick;
-		this.changed = true;
-	}
-
 	public int getLvl()
 	{
 		return lvl;
-	}
-
-	public void setLvl( int lvl )
-	{
-		this.lvl = lvl;
-		this.changed = true;
 	}
 
 	public int getXp()
@@ -222,9 +231,29 @@ public class Profil
 		return xp;
 	}
 
+	public List<Skill> getSkills()
+	{
+		return Collections.unmodifiableList(skills);
+	}
+
+	/**
+	public void setNick( String nick )
+	{
+		this.nick = nick;
+		this.changed = true;
+	}
+	
+	public void setLvl( int lvl )
+	{
+		this.lvl = lvl;
+		this.changed = true;
+	}
+
 	public void setXp( int xp )
 	{
 		this.xp = xp;
 		this.changed = true;
 	}
+	*/
+
 }

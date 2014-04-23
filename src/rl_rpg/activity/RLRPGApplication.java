@@ -148,7 +148,7 @@ public class RLRPGApplication extends Application
 
 		void upXp()
 		{
-			Profil.getLocal().setXp( Profil.getLocal().getXp() + 1 );
+			Profil.getLocal().addXp( 3 );
 		}
 
 		@Override

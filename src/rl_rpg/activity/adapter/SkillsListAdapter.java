@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import rl_rpg.activity.MyAccountActivity;
 import rl_rpg.activity.R;
-import rl_rpg.model.SkillListModel;
+import rl_rpg.model.Skill;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -87,7 +87,7 @@ public class SkillsListAdapter extends BaseAdapter implements OnClickListener
 		} else {
 
 
-			SkillListModel tempValues = (SkillListModel) data.get( position );
+			Skill tempValues = (Skill) data.get( position );
 			/* Set data on screen */
 			holder.skillName.setText( tempValues.getSkillName() );
 			holder.skillValue.setProgress( tempValues.getSkillValue() );
