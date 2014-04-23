@@ -89,8 +89,8 @@ public class SkillsListAdapter extends BaseAdapter implements OnClickListener
 
 			Skill tempValues = (Skill) data.get( position );
 			/* Set data on screen */
-			holder.skillName.setText( tempValues.getSkillName() );
-			holder.skillValue.setProgress( tempValues.getSkillValue() );
+			holder.skillName.setText( tempValues.getName() );
+			holder.skillValue.setProgress( tempValues.getValue() );
 
 			vi.setOnClickListener( new OnItemClickListener( position ) );
 		}

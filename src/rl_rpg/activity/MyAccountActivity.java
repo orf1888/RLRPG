@@ -70,6 +70,7 @@ public class MyAccountActivity extends Activity {
 		}
 	}
 
+<<<<<<< HEAD
 	public void onItemClick(int itemPos) {
 		final Skill skill = (Skill) CustomListViewValuesArr.get(itemPos);
 		// Listenery
@@ -77,6 +78,28 @@ public class MyAccountActivity extends Activity {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+=======
+	public void onItemClick( int itemPos )
+	{
+		final Skill skill = (Skill) CustomListViewValuesArr.get( itemPos );
+		/* After click dialog */
+		AlertDialog.Builder builder = new AlertDialog.Builder( this );
+		builder.setMessage( skill.getDescr() );
+		builder.setTitle( skill.getName() );
+		/* Dodaæ "Ok" do stringsów */
+		builder.setPositiveButton( "Train", new DialogInterface.OnClickListener()
+		{
+			public void onClick( DialogInterface dialog, int id )
+			{
+				SkillTainingDialog improveDialog=new SkillTainingDialog( MyAccountActivity.this);
+				improveDialog.buildDialog( skill.getName(), "How meny lines of code did you wrote today?");
+			}
+		} );
+		builder.setNegativeButton( "Back", new DialogInterface.OnClickListener()
+		{
+			public void onClick( DialogInterface dialog, int id )
+			{
+>>>>>>> branch 'master' of https://github.com/orf1888/RLRPG.git
 				return;
 			}
 		};

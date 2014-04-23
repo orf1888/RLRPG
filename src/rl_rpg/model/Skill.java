@@ -1,38 +1,82 @@
 package rl_rpg.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import rl_rpg.utils.MapWithDefaults;
+
 public class Skill
 {
-	private Skill( String skillName, String skillDescr )
+	private Skill( SkillType type )
 	{
-		this.skillName = skillName;
-		this.skillValue = 0;
-		this.skillDescr = skillDescr;
+		this.value = 0;
+		this.type=type;
 	}
 
 	///
 	/// model
 	///
 
-	private String skillName;
-	private int skillValue;
-	private String skillDescr;
+	private int value;
+	private SkillType type;
 
+	//
+	//
+	//
+	
 	public enum SkillType {
-		Coding("Coding", "In this skill you should write a lot of lines of code"),
-		DoingNothing("DoingNothing", "Can you guess what ya have to do? Nah, ya don't have to"),
-		Test1("Test1", "Test 1"),
-		Test2("Test2", "Test 2"),
+		Coding( 1, "Coding", "In this skill you should write a lot of lines of code"),
+		DoingNothing( 2, "DoingNothing", "Can you guess what ya have to do? Nah, ya don't have to"),
+		Test1( 3, "Test1", "Test 1"),
+		Test2( 4, "Test2", "Test 2"),
 		;
 		
-		SkillType( String name, String descr ){
+		SkillType( int nr, String name, String descr ){
+			this.nr = nr;
 			this.name= name;
 			this.descr= descr;
 		}
 		
+		static SkillType getSkillByNr(int n){
+			for( SkillType s : values() )
+				if( s.nr==n )
+					return s;
+			return null;
+		}
+		
+		int nr;
 		String name;
 		String descr;
 	}
 
+	//
+	//
+	//
+	
+	Object save()
+	{
+		Map<String, Object> save = new HashMap<String, Object>( 2 );
+		save.put( "value", value );
+		save.put( "type", type.nr );
+		return save;
+	}
+	
+	static Skill loadOrNull( MapWithDefaults save )
+	{
+		SkillType type = SkillType.getSkillByNr( (int) (Integer) save.get( "type", 0 ) );
+		if( type==null )
+			return null;
+		
+		Skill result = new Skill( type );
+		result.value =(int) (Integer) save.get( "value", 0 );
+		
+		// tmp
+		if( type.name.equals( "DoingNothing" ))
+			result.value = (result.value>80)? result.value : result.value+15;
+		// tmp
+		return result;
+	}
+	
 	//
 	//
 	//
@@ -41,40 +85,23 @@ public class Skill
 	{
 		public static Skill createSkill( SkillType type )
 		{
-			return new Skill( type.name, type.descr );
+			return new Skill( type );
 		}
 	}
 
-	/* Getters */
-	public String getSkillDescr()
+	
+	public int getValue()
 	{
-		return skillDescr;
+		return value;
+	}
+	
+	public String getName()
+	{
+		return type.name;
 	}
 
-	public String getSkillName()
+	public String getDescr()
 	{
-		return skillName;
+		return type.descr;
 	}
-
-	public int getSkillValue()
-	{
-		return skillValue;
-	}
-
-	/* Setters */
-	public void setSkillDescr( String skillDescr )
-	{
-		this.skillDescr = skillDescr;
-	}
-
-	public void setSkillName( String skillName )
-	{
-		this.skillName = skillName;
-	}
-
-	public void setSkillValue( int skillValue )
-	{
-		this.skillValue = skillValue;
-	}
-
 }
