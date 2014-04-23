@@ -6,12 +6,9 @@ import rl_rpg.activity.adapter.ChallengeListAdapter;
 import rl_rpg.model.ChallengeListModel;
 import rl_rpg.utils.DialogBuilder;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class ChallengeListViewActivity extends Activity {
 

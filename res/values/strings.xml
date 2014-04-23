@@ -7,5 +7,7 @@
     <string name="title_activity_achivment">AchivmentActivity</string>
     <string name="title_activity_my_account">MyAccountActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_community">CommunityActivity</string>
+    <string name="title_activity_player_list_view">PlayerListViewActivity</string>
 
 </resources>

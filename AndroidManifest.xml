@@ -35,6 +35,14 @@
             android:name="rl_rpg.activity.MyAccountActivity"
             android:label="@string/title_activity_my_account" >
         </activity>
+        <activity
+            android:name="rl_rpg.activity.CommunityActivity"
+            android:label="@string/title_activity_community" >
+        </activity>
+        <activity
+            android:name="rl_rpg.activity.PlayerListViewActivity"
+            android:label="@string/title_activity_player_list_view" >
+        </activity>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import rl_rpg.activity.R;
 import rl_rpg.model.Profil;
 import rl_rpg.model.Profil.OnChangeProfilListener;
 import rl_rpg.utils.L;
+import rl_rpg.utils.Utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -89,9 +90,7 @@ public class MainActivity extends Activity
 				public void onClick( View v )
 				{
 					/* Dzia³a? */
-					Intent intent = new Intent( context, ChallengeListViewActivity.class );
-					intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
-					context.startActivity( intent );
+					Utils.startNewActivity(context, ChallengeListViewActivity.class);
 				}
 			} );
 			community.setOnClickListener( new OnClickListener()
@@ -99,7 +98,8 @@ public class MainActivity extends Activity
 				@Override
 				public void onClick( View v )
 				{
-					Toast.makeText( context, "Klikn¹³eœ community!", Toast.LENGTH_SHORT ).show();
+					Utils.startNewActivity(context, CommunityActivity.class);
+					//Toast.makeText( context, "Klikn¹³eœ community!", Toast.LENGTH_SHORT ).show();
 				}
 			} );
 			myAccount.setOnClickListener( new OnClickListener()
@@ -107,9 +107,7 @@ public class MainActivity extends Activity
 				@Override
 				public void onClick( View v )
 				{
-					Intent intent = new Intent( context, MyAccountActivity.class );
-					intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
-					context.startActivity( intent );
+					Utils.startNewActivity(context, MyAccountActivity.class);
 				}
 			} );
 		}
