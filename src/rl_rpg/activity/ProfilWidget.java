@@ -3,6 +3,7 @@ package rl_rpg.activity;
 import rl_rpg.model.Profil;
 import rl_rpg.model.Profil.OnChangeProfilListener;
 import rl_rpg.utils.L;
+import rl_rpg.utils.Utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -63,9 +64,7 @@ public class ProfilWidget
 				@Override
 				public void onClick( View v )
 				{
-					Intent intent = new Intent( context, MyAccountActivity.class );
-					intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
-					context.startActivity( intent );
+					Utils.startNewActivity(context, MyAccountActivity.class);
 				}
 			} );
 		}
@@ -73,6 +72,6 @@ public class ProfilWidget
 	
 	public void dropListeners()
 	{
-		Profil.getLocal().removeOnChangeListener( "ProfilWidget" );
+		Profil.getLocal().removeOnChangeListener("ProfilWidget");
 	}
 }
