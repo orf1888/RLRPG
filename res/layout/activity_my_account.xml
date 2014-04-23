@@ -25,21 +25,21 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/textLblNick"
+                    android:id="@+id/textMyAccNick"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NICK: "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
-                    android:id="@+id/textLblLvl"
+                    android:id="@+id/textMyAccLvl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="LVL: "
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
-                    android:id="@+id/textLblXp"
+                    android:id="@+id/textMyAccXp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="XP: "
@@ -55,60 +55,16 @@
         android:text="Skill&apos;s list:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Skill 1"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <ProgressBar
-            android:id="@+id/progressBar1"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Skill 2"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <ProgressBar
-            android:id="@+id/progressBar2"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Skill 3"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <ProgressBar
-            android:id="@+id/progressBar3"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    
+        android:layout_height="match_parent">
+     
+        <ListView
+            android:id="@+id/skillsList"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_weight="1"/>
+     
+ </RelativeLayout>
     
 </LinearLayout>
