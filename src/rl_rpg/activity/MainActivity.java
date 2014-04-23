@@ -22,53 +22,10 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity
 {
-	// widok
-	static class EkranProfil
-	{
-		public TextView nick, lvl, xp;
-		
-		Activity parent;
-		
-		EkranProfil( Activity parent )
-		{
-			this.parent = parent;
-		}
-		
-		// funkcja wykonywana automatycznie dla kazdej zmiany zachodzacej w profil
-		public void updateProfil()
-		{
-			nick.setText( "NICK: " + Profil.getLocal().getNick() );
-			lvl.setText( "LVL: " + Profil.getLocal().getLvl() );
-			xp.setText( "XP: " + Profil.getLocal().getXp() );
-		}
-		
-		public void setListeners( final Context context )
-		{
 
-			/////////////////////////
-			//// onChange
-			Profil.getLocal().addOnChangeListener( new OnChangeProfilListener()
-			{
-				@Override
-				public void onChange()
-				{
-					parent.runOnUiThread( new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							updateProfil();
-						}
-					} );
-				}
-			} );
-		}
-	}
-	
 	static class EkranGlowny
 	{
 		public Button challenge, community;
-		public ImageButton myAccount;
 
 		Activity parent;
 
@@ -76,11 +33,11 @@ public class MainActivity extends Activity
 		{
 			this.parent = parent;
 		}
-		
 
-		public void setListeners( final Context context )
+
+		public void setListeners()
 		{
-
+			final Context context = parent.getApplicationContext();
 			/////////////////////////
 			//// onClick
 			challenge.setOnClickListener( new OnClickListener()
@@ -102,58 +59,54 @@ public class MainActivity extends Activity
 					Toast.makeText( context, "Klikn¹³eœ community!", Toast.LENGTH_SHORT ).show();
 				}
 			} );
-			myAccount.setOnClickListener( new OnClickListener()
-			{
-				@Override
-				public void onClick( View v )
-				{
-					Intent intent = new Intent( context, MyAccountActivity.class );
-					intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
-					context.startActivity( intent );
-				}
-			} );
+		}
+		
+		public void dropListeners()
+		{
 		}
 	}
 
 	static EkranGlowny ekranGlowny;
-	static EkranProfil ekranProfil;
+	static ProfilWidget ekranProfil;
 
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState )
 	{
 		super.onCreate( savedInstanceState );
+		
+		try {
+			RLRPGApplication.performLoad();
+		} catch ( Exception e ) {
+			L.logError( e );
+		}
 
 		RLRPGApplication.registerActivity( this );
 
 		/* init */
 		ekranGlowny = new EkranGlowny( this );
-		ekranProfil = new EkranProfil( this );
-		
+		ekranProfil = new ProfilWidget( this, true );
+
 		/* init view */
 		setContentView( R.layout.activity_main );
 		ekranProfil.nick = (TextView) findViewById( R.id.textLblNick );
 		ekranProfil.lvl = (TextView) findViewById( R.id.textLblLvl );
 		ekranProfil.xp = (TextView) findViewById( R.id.textLblXp );
+		ekranProfil.myAccount = (ImageButton) findViewById( R.id.myAcc );
 		ekranProfil.updateProfil();
 
 		ekranGlowny.challenge = (Button) findViewById( R.id.btnChallenge );
 		ekranGlowny.community = (Button) findViewById( R.id.btnCom );
-		ekranGlowny.myAccount = (ImageButton) findViewById( R.id.myAcc );
-
-		ekranGlowny.setListeners( getApplicationContext() );
-		ekranProfil.setListeners( getApplicationContext() );
 	}
 
 
-	/**
-	 * wczytujemy zapis stanu
-	 */
 	@Override
 	protected void onPause()
 	{
 		super.onPause();
 		try {
+			ekranGlowny.dropListeners();
+			ekranProfil.dropListeners();
 			RLRPGApplication.performSave();
 		} catch ( IOException e ) {
 			L.logError( e );
@@ -164,21 +117,19 @@ public class MainActivity extends Activity
 	protected void onResume()
 	{
 		super.onResume();
-		try {
-			RLRPGApplication.performLoad();
-		} catch ( Exception e ) {
-			L.logError( e );
-		}
+		ekranGlowny.setListeners();
+		ekranProfil.setListeners();
+		ekranProfil.updateProfil();
 	}
 
 
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu )
 	{
-		try{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate( R.menu.main, menu );
-		return true;
+		try {
+			// Inflate the menu; this adds items to the action bar if it is present.
+			getMenuInflater().inflate( R.menu.main, menu );
+			return true;
 		} catch ( Exception e ) {
 			L.logError( e );
 			return false;

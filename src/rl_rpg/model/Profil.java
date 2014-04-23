@@ -26,9 +26,13 @@ public class Profil
 	private int xp;
 	private List<Skill> skills;
 
+	///
+	/// model modifiers
+	///
+	
 	public void addXp( int value )
 	{
-		L._assert( value > 0 );
+		L._assert( value > 0 && value < 1000000 );
 		xp += value;
 		this.changed = true;
 	}
@@ -38,19 +42,17 @@ public class Profil
 	///
 
 	/** korzystamy z tej funkcji, jesli chcemy byc powiadamiani o zmianach zachodz¹cych w profilu,
-	 *  przyklad: UI sie podpina zeby wyswietlac zmiany */
-	public void addOnChangeListener( OnChangeProfilListener listener )
+	 *  przyklad: UI sie podpina zeby wyswietlac zmiany 
+	 * @param string */
+	public void addOnChangeListener( String name, OnChangeProfilListener listener )
 	{
-		onChangeListeners.add( listener );
+		onChangeListeners.put( name, listener );
 	}
-
-	/*
-	 * public void update( ProfilDelta d ) { raiseOnChanged(); }
-	 */
-
-	///
-	/// static methods
-	///
+	
+	public void removeOnChangeListener( String name )
+	{
+		onChangeListeners.remove( name );
+	}
 
 	/** pobiera profil osoby aktualnie korzystaj¹cej z aplikacji
 	 */
@@ -65,44 +67,15 @@ public class Profil
 
 	private void raiseOnChanged()
 	{
-		for (OnChangeProfilListener listener : onChangeListeners)
+		for (OnChangeProfilListener listener : onChangeListeners.values())
 			listener.onChange();
 	}
-
-	///
-	/// pomocnicze zmienne
-	///
-
-	ArrayList<OnChangeProfilListener> onChangeListeners = new ArrayList<Profil.OnChangeProfilListener>();
-	boolean changed;
-
-	private final String default_nick = "x1";
-	private final int default_lvl = 20;
-	private final int default_xp = 0;
-	private final List<Skill> default_skills = new ArrayList<Skill>(
-			Arrays.asList( Skill.Manager.createSkill( SkillType.DoingNothing ),
-					Skill.Manager.createSkill( SkillType.Coding ),
-					Skill.Manager.createSkill( SkillType.Test1 ),
-					Skill.Manager.createSkill( SkillType.Test2 ),
-					Skill.Manager.createSkill( SkillType.Test1 ),
-					Skill.Manager.createSkill( SkillType.Test1 ),
-					Skill.Manager.createSkill( SkillType.Test1 )));
-
-	///
-	/// classes
-	///
-
-	public static class _ProfilDelta
+	
+	void raiseSkillChanged()
 	{
-
+		raiseOnChanged();
 	}
-
-	public static interface OnChangeProfilListener
-	{
-		public void onChange();
-	}
-
-
+	
 	Object save()
 	{
 		Map<String, Object> save = new HashMap<String, Object>( 4+skills.size() );
@@ -129,14 +102,52 @@ public class Profil
 				Object skill_save = save.get( "skills_"+i, null );
 				Skill skill = null;
 				if( skill_save!=null )
-					skill= Skill.loadOrNull( new MapWithDefaults( skill_save ) );
+					skill= Skill.loadOrNull( new MapWithDefaults( skill_save ), this );
 				if( skill != null )
 					skills.add( skill );
 			}
 		}else{
-			skills = (List<Skill>) ((ArrayList)default_skills).clone();
+			skills = default_skills(this);
 		}
 		changed = true;
+	}
+
+	///
+	/// pomocnicze zmienne
+	///
+
+	Map<String, OnChangeProfilListener> onChangeListeners = new HashMap<String, Profil.OnChangeProfilListener>();
+	boolean changed;
+
+	private final String default_nick = "x1";
+	private final int default_lvl = 20;
+	private final int default_xp = 0;
+
+	private final ArrayList<Skill> default_skills( Profil parent )
+	{
+		ArrayList<Skill> result = new ArrayList<Skill>();
+		result.add( new Skill( SkillType.DoingNothing, this ) );
+		result.add( new Skill( SkillType.Coding, this ) );
+		result.add( new Skill( SkillType.Test1, this ) );
+		result.add( new Skill( SkillType.Test2, this ) );
+		result.add( new Skill( SkillType.Test1, this ) );
+		result.add( new Skill( SkillType.Test1, this ) );
+		result.add( new Skill( SkillType.Test1, this ) );
+		return result;
+	}
+
+	///
+	/// classes
+	///
+
+	public static class _ProfilDelta
+	{
+
+	}
+
+	public static interface OnChangeProfilListener
+	{
+		public void onChange();
 	}
 
 
@@ -230,7 +241,7 @@ public class Profil
 	}
 
 	///
-	/// setters getters
+	/// getters
 	///
 
 	public String getNick()

@@ -153,11 +153,6 @@ public class RLRPGApplication extends Application
 
 		long lastTime;
 
-		void upXp()
-		{
-			Profil.getLocal().addXp( 3 );
-		}
-
 		@Override
 		public void run()
 		{
@@ -169,7 +164,9 @@ public class RLRPGApplication extends Application
 
 					//
 					if( time - lastTime > diff ) {
-						upXp();
+						Profil.getLocal().addXp( 1 );
+						if( Profil.getLocal().getSkills().get( 0 ) != null )
+							Profil.getLocal().getSkills().get( 0 ).addValue( 4 );
 						lastTime = time;
 					}
 					//
