@@ -18,7 +18,7 @@ import android.os.Environment;
 
 public class RLRPGApplication extends Application
 {
-	private static int version = VersionToInt(1,1,1);
+	private static int version= VersionToInt( 1, 1, 1 );
 	Thread mainThread= null;
 	boolean initialized= false;
 
@@ -38,11 +38,11 @@ public class RLRPGApplication extends Application
 
 	private static int VersionToInt( int i, int j, int k )
 	{
-		int x = 0;	// future zastosowanie, np. mozna tu upchac litere
-		L._assert( i>=0 && j>=0 && k>=0 && x>=0 && i<100 && j<100 && k<1000 && x<100);
-		return i*10000000+j*100000+k*100+x;
+		int x= 0; // future zastosowanie, np. mozna tu upchac litere
+		L._assert( i >= 0 && j >= 0 && k >= 0 && x >= 0 && i < 100 && j < 100 && k < 1000 && x < 100 );
+		return i * 10000000 + j * 100000 + k * 100 + x;
 	}
-	
+
 
 	public static void addSaveLoadListener( SaveLoadListener listener )
 	{
@@ -96,12 +96,12 @@ public class RLRPGApplication extends Application
 			s= new ObjectInputStream( stream );
 
 			@SuppressWarnings("unused")
-			int save_version = (int) s.readInt();
-			
-			int hash = (int) s.readInt();
+			int save_version= (int) s.readInt();
+
+			int hash= (int) s.readInt();
 			HashMap<String, Object> maps= (HashMap<String, Object>) s.readObject();
-			if( hash!=maps.hashCode())
-				throw new Exception("corrupted save");
+			if( hash != maps.hashCode() )
+				throw new Exception( "corrupted save" );
 
 			L.log( "performLoad " + maps.keySet().size() );
 
@@ -111,7 +111,7 @@ public class RLRPGApplication extends Application
 					continue;
 				listener.onLoad( new MapWithDefaults( maps.get( key ) ) );
 			}
-			
+
 		} catch ( Exception e ) {
 			L.logError( e );
 		} finally {
@@ -156,13 +156,16 @@ public class RLRPGApplication extends Application
 	static public interface SaveLoadListener
 	{
 		Map<String, Object> onSave();
+
 		void onLoad( MapWithDefaults map );
+
 		String getNamePrefix();
 	}
 
 	static public interface LoopListener
 	{
 		void onTick();
+
 		String getNamePrefix();
 	}
 

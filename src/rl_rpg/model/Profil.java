@@ -1,5 +1,6 @@
 package rl_rpg.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,8 +15,10 @@ import rl_rpg.utils.L;
 import rl_rpg.utils.MapWithDefaults;
 
 
-public class Profil
+public class Profil implements Serializable
 {
+	private static final long serialVersionUID= 1L;
+	
 	///
 	/// model
 	///
@@ -135,6 +138,20 @@ public class Profil
 		return result;
 	}
 
+	/** pomocnicze */
+	Profil()
+	{
+	}
+
+	/** pomocnicze */
+	Profil( String nick, int lvl, int xp, /**!!!*/
+	boolean toJestPomocniczyKonstruktor )
+	{
+		this.nick= nick;
+		this.lvl= lvl;
+		this.xp= xp;
+	}
+
 	///
 	/// classes
 	///
@@ -166,6 +183,37 @@ public class Profil
 		{
 			local= new Profil();
 			local.load( MapWithDefaults.defaults() );
+
+			//
+			{
+				tmp1= new Profil( "zdzisiek", 17, 1, true );
+				tmp2= new Profil( "franek", 3, 1, true );
+				tmp3= new Profil( "kapitan dupa", 9000, 1, true );
+				ArrayList<Skill> skills1= new ArrayList<Skill>();
+				skills1.add( new Skill( SkillType.DoingNothing, tmp1 ) );
+				skills1.add( new Skill( SkillType.Coding, tmp1 ) );
+				tmp1.skills= skills1;
+				ArrayList<Skill> skills2= new ArrayList<Skill>();
+				skills2.add( new Skill( SkillType.DoingNothing, tmp2 ) );
+				skills2.add( new Skill( SkillType.Coding, tmp2 ) );
+				tmp2.skills= skills2;
+				ArrayList<Skill> skills3= new ArrayList<Skill>();
+				skills3.add( new Skill( SkillType.DoingNothing, tmp3 ) );
+				skills3.add( new Skill( SkillType.Coding, tmp3 ) );
+				tmp3.skills= skills3;
+			}//
+		}
+
+		Profil tmp1, tmp2, tmp3;
+
+		public static Profil getProfilById( long id )
+		{
+			if( id == 1 )
+				return instance().tmp1;
+			else if( id == 2 )
+				return instance().tmp2;
+			else
+				return instance().tmp3;
 		}
 
 		//
@@ -261,25 +309,5 @@ public class Profil
 	{
 		return Collections.unmodifiableList( skills );
 	}
-
-	/**
-	public void setNick( String nick )
-	{
-		this.nick = nick;
-		this.changed = true;
-	}
-	
-	public void setLvl( int lvl )
-	{
-		this.lvl = lvl;
-		this.changed = true;
-	}
-
-	public void setXp( int xp )
-	{
-		this.xp = xp;
-		this.changed = true;
-	}
-	*/
 
 }

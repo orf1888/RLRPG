@@ -3,7 +3,7 @@ package rl_rpg.activity;
 import java.util.ArrayList;
 
 import rl_rpg.activity.adapter.PlayersListAdapter;
-import rl_rpg.model.Player;
+import rl_rpg.model.Profil;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -13,11 +13,9 @@ import android.widget.ListView;
 
 public class PlayerListViewActivity extends Activity
 {
-
 	ListView list;
 	PlayersListAdapter adapter;
-	public PlayerListViewActivity PlayerListView= null;
-	public ArrayList<Player> playersArr= new ArrayList<Player>();
+	public ArrayList<Profil> playersArr= new ArrayList<Profil>();
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState )
@@ -25,26 +23,45 @@ public class PlayerListViewActivity extends Activity
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.players_list );
 
-		PlayerListView= this;
-		setListData();
+		if( savedInstanceState!=null && savedInstanceState.getBoolean( "saved", false )==true ) {
+			// restore save
+			int size= savedInstanceState.getInt( "player_count", 0 );
+			for( int i= 0; i < size; i++ ){
+				Profil p = (Profil) savedInstanceState.getSerializable( "player_"+i );
+				playersArr.add( p );
+			}
+		} else {
+			// create default
+			setListData();
+		}
+
 		Resources res= getResources();
-		list= (ListView) findViewById( R.id.playersList ); // List defined in XML
-															// ( See
-		adapter= new PlayersListAdapter( PlayerListView, playersArr, res );
+		list= (ListView) findViewById( R.id.playersList );
+
+		adapter= new PlayersListAdapter( this, playersArr, res );
 		list.setAdapter( adapter );
 	}
 
+
+	@Override
+	protected void onSaveInstanceState( Bundle savedInstanceState )
+	{
+		super.onSaveInstanceState( savedInstanceState );
+		savedInstanceState.putBoolean( "saved", true );
+		savedInstanceState.putInt( "player_count", playersArr.size() );
+		for( int i= 0; i < playersArr.size(); i++ ) 
+			savedInstanceState.putSerializable( "player_"+i, playersArr.get( i ) );
+	}
+
+
 	public void setListData()
 	{
-
 		for( int i= 0; i < 11; i++ ) {
-
-			final Player player= new Player();
-			player.setNick( "Player " + i );
-			playersArr.add( player );
+			int id = (int) (10*Math.random()+1);
+			playersArr.add( Profil.Manager.getProfilById( id ) );
 		}
-
 	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu )

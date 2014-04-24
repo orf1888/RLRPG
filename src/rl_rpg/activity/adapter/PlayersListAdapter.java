@@ -3,7 +3,7 @@ package rl_rpg.activity.adapter;
 import java.util.List;
 
 import rl_rpg.activity.R;
-import rl_rpg.model.Player;
+import rl_rpg.model.Profil;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.view.View;
@@ -44,7 +44,7 @@ public class PlayersListAdapter extends ListAdapter
 		@Override
 		public void set( Object model, int position )
 		{
-			Player tempValues= (Player) model;
+			Profil tempValues= (Profil) model;
 			playerName.setText( tempValues.getNick() );
 			showAcc.setTag( position );
 			showAcc.setOnClickListener( new OnClickListener()
@@ -54,8 +54,8 @@ public class PlayersListAdapter extends ListAdapter
 				public void onClick( View v )
 				{
 					Integer position= (Integer) v.getTag();
-					Player play= (Player) parent.data.get( position );
-					Toast.makeText( parent.inflater.getContext(), "Klikn¹³eœ " + play.getNick(), Toast.LENGTH_SHORT ).show();
+					Profil profil= (Profil) parent.data.get( position );
+					Toast.makeText( parent.inflater.getContext(), "Klikn¹³eœ " + profil.getNick(), Toast.LENGTH_SHORT ).show();
 				}
 			} );
 		}
