@@ -14,8 +14,10 @@ import rl_rpg.model.Skill.SkillType;
 import rl_rpg.utils.L;
 import rl_rpg.utils.MapWithDefaults;
 
-public class Profil implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+public class Profil implements Serializable
+{
+	private static final long serialVersionUID= 1L;
 
 	// /
 	// / model
@@ -30,10 +32,11 @@ public class Profil implements Serializable {
 	// / model modifiers
 	// /
 
-	public void addXp(int value) {
-		L._assert(value > 0 && value < 1000000);
-		xp += value;
-		this.changed = true;
+	public void addXp( int value )
+	{
+		L._assert( value > 0 && value < 1000000 );
+		xp+= value;
+		this.changed= true;
 	}
 
 	// /
@@ -46,18 +49,21 @@ public class Profil implements Serializable {
 	 * 
 	 * @param string
 	 */
-	public void addOnChangeListener(String name, OnChangeProfilListener listener) {
-		onChangeListeners.put(name, listener);
+	public void addOnChangeListener( String name, OnChangeProfilListener listener )
+	{
+		onChangeListeners.put( name, listener );
 	}
 
-	public void removeOnChangeListener(String name) {
-		onChangeListeners.remove(name);
+	public void removeOnChangeListener( String name )
+	{
+		onChangeListeners.remove( name );
 	}
 
 	/**
 	 * pobiera profil osoby aktualnie korzystaj¹cej z aplikacji
 	 */
-	public static Profil getLocal() {
+	public static Profil getLocal()
+	{
 		return Manager.getLocalProfil();
 	}
 
@@ -65,137 +71,148 @@ public class Profil implements Serializable {
 	// / private methods
 	// /
 
-	private void raiseOnChanged() {
-		for (OnChangeProfilListener listener : onChangeListeners.values())
+	private void raiseOnChanged()
+	{
+		for( OnChangeProfilListener listener : onChangeListeners.values() )
 			listener.onChange();
 	}
 
-	void raiseSkillChanged() {
+	void raiseSkillChanged()
+	{
 		raiseOnChanged();
 	}
 
-	Object save() {
-		Map<String, Object> save = new HashMap<String, Object>(
-				4 + skills.size());
-		save.put("nick", nick);
-		save.put("lvl", lvl);
-		save.put("xp", xp);
-		save.put("skills_size", skills.size());
-		for (int i = 0; i < skills.size(); ++i) {
-			save.put("skills_" + i, skills.get(i).save());
+	Object save()
+	{
+		Map<String, Object> save= new HashMap<String, Object>( 4 + skills.size() );
+		save.put( "nick", nick );
+		save.put( "lvl", lvl );
+		save.put( "xp", xp );
+		save.put( "skills_size", skills.size() );
+		for( int i= 0; i < skills.size(); ++i ) {
+			save.put( "skills_" + i, skills.get( i ).save() );
 		}
 		return save;
 	}
 
-	void load(MapWithDefaults save) {
-		nick = (String) save.get("nick", default_nick);
-		lvl = (int) (Integer) save.get("lvl", default_lvl);
-		xp = (int) (Integer) save.get("xp", default_xp);
+	void load( MapWithDefaults save )
+	{
+		nick= (String) save.get( "nick", default_nick );
+		lvl= (int) (Integer) save.get( "lvl", default_lvl );
+		xp= (int) (Integer) save.get( "xp", default_xp );
 
-		int skills_count = (int) (Integer) save.get("skills_size", 0);
-		if (skills_count > 0) {
+		int skills_count= (int) (Integer) save.get( "skills_size", 0 );
+		if( skills_count > 0 ) {
 			skills.clear();
-			for (int i = 0; i < skills_count; ++i) {
-				Object skill_save = save.get("skills_" + i, null);
-				Skill skill = null;
-				if (skill_save != null)
-					skill = Skill.loadOrNull(new MapWithDefaults(skill_save),
-							this);
-				if (skill != null)
-					skills.add(skill);
+			for( int i= 0; i < skills_count; ++i ) {
+				Object skill_save= save.get( "skills_" + i, null );
+				Skill skill= null;
+				if( skill_save != null )
+					skill= Skill.loadOrNull( new MapWithDefaults( skill_save ), this );
+				if( skill != null )
+					skills.add( skill );
 			}
 		} else {
-			skills = default_skills(this);
+			skills= default_skills( this );
 		}
-		changed = true;
+		changed= true;
 	}
 
 	// /
 	// / pomocnicze zmienne
 	// /
 
-	Map<String, OnChangeProfilListener> onChangeListeners = new HashMap<String, Profil.OnChangeProfilListener>();
+	Map<String, OnChangeProfilListener> onChangeListeners= new HashMap<String, Profil.OnChangeProfilListener>();
 	boolean changed;
 
-	private final String default_nick = "x1";
-	private final int default_lvl = 20;
-	private final int default_xp = 0;
+	private final String default_nick= "x1";
+	private final int default_lvl= 20;
+	private final int default_xp= 0;
 
-	private final ArrayList<Skill> default_skills(Profil parent) {
-		ArrayList<Skill> result = new ArrayList<Skill>();
-		result.add(new Skill(SkillType.DoingNothing, this));
-		result.add(new Skill(SkillType.Coding, this));
-		result.add(new Skill(SkillType.Test1, this));
-		result.add(new Skill(SkillType.Test2, this));
-		result.add(new Skill(SkillType.Test1, this));
-		result.add(new Skill(SkillType.Test1, this));
-		result.add(new Skill(SkillType.Test1, this));
+	private final ArrayList<Skill> default_skills( Profil parent )
+	{
+		ArrayList<Skill> result= new ArrayList<Skill>();
+		result.add( new Skill( SkillType.DoingNothing, this ) );
+		result.add( new Skill( SkillType.Coding, this ) );
+		result.add( new Skill( SkillType.Test1, this ) );
+		result.add( new Skill( SkillType.Test2, this ) );
+		result.add( new Skill( SkillType.Test1, this ) );
+		result.add( new Skill( SkillType.Test1, this ) );
+		result.add( new Skill( SkillType.Test1, this ) );
 		return result;
 	}
 
 	/** pomocnicze */
-	Profil() {
+	Profil()
+	{
 	}
 
 	/** pomocnicze */
-	Profil(String nick, int lvl, int xp, /** !!! */
-	boolean toJestPomocniczyKonstruktor) {
-		this.nick = nick;
-		this.lvl = lvl;
-		this.xp = xp;
+	Profil( String nick, int lvl, int xp, /** !!! */
+	boolean toJestPomocniczyKonstruktor )
+	{
+		this.nick= nick;
+		this.lvl= lvl;
+		this.xp= xp;
 	}
 
 	// /
 	// / classes
 	// /
 
-	public static class _ProfilDelta {
+	public static class _ProfilDelta
+	{
 
 	}
 
-	public static interface OnChangeProfilListener {
+	public static interface OnChangeProfilListener
+	{
 		public void onChange();
 	}
 
-	public static class Manager {
-		Profil local = null;// createDefault();
+	public static class Manager
+	{
+		Profil local= null;// createDefault();
 
-		protected static Profil getLocalProfil() {
+		protected static Profil getLocalProfil()
+		{
 			// if( instance().local == null )
 			// instance().local = createDefault();
 			return instance().local;
 		}
 
-		public void init() {
-			local = new Profil();
-			local.load(MapWithDefaults.defaults());
+		public void init()
+		{
+			local= new Profil();
+			local.load( MapWithDefaults.defaults() );
 
 			//
 			{
-				tmp1 = new Profil("zdzisiek", 17, 1, true);
-				tmp2 = new Profil("franek", 3, 1, true);
-				tmp3 = new Profil("kapitan dupa", 9000, 1, true);
-				ArrayList<Skill> skills1 = new ArrayList<Skill>();
-				skills1.add(new Skill(SkillType.DoingNothing, tmp1));
-				skills1.add(new Skill(SkillType.Coding, tmp1));
-				tmp1.skills = skills1;
-				ArrayList<Skill> skills2 = new ArrayList<Skill>();
-				skills2.add(new Skill(SkillType.DoingNothing, tmp2));
-				skills2.add(new Skill(SkillType.Coding, tmp2));
-				tmp2.skills = skills2;
-				ArrayList<Skill> skills3 = new ArrayList<Skill>();
-				skills3.add(new Skill(SkillType.DoingNothing, tmp3));
-				skills3.add(new Skill(SkillType.Coding, tmp3));
-				tmp3.skills = skills3;
+				tmp1= new Profil( "zdzisiek", 17, 1, true );
+				tmp2= new Profil( "franek", 3, 1, true );
+				tmp3= new Profil( "kapitan dupa", 9000, 1, true );
+				ArrayList<Skill> skills1= new ArrayList<Skill>();
+				skills1.add( new Skill( SkillType.DoingNothing, tmp1 ) );
+				skills1.add( new Skill( SkillType.Coding, tmp1 ) );
+				tmp1.skills= skills1;
+				ArrayList<Skill> skills2= new ArrayList<Skill>();
+				skills2.add( new Skill( SkillType.DoingNothing, tmp2 ) );
+				skills2.add( new Skill( SkillType.Coding, tmp2 ) );
+				tmp2.skills= skills2;
+				ArrayList<Skill> skills3= new ArrayList<Skill>();
+				skills3.add( new Skill( SkillType.DoingNothing, tmp3 ) );
+				skills3.add( new Skill( SkillType.Coding, tmp3 ) );
+				tmp3.skills= skills3;
 			}//
 		}
 
 		Profil tmp1, tmp2, tmp3;
 
-		public static Profil getProfilById(long id) {
-			if (id == 1)
+		public static Profil getProfilById( long id )
+		{
+			if( id == 1 )
 				return instance().tmp1;
-			else if (id == 2)
+			else if( id == 2 )
 				return instance().tmp2;
 			else
 				return instance().tmp3;
@@ -205,58 +222,67 @@ public class Profil implements Serializable {
 		// singleton
 		//
 
-		private static final Manager INSTANCE = new Manager();
+		private static final Manager INSTANCE= new Manager();
 
-		public static Manager instance() {
+		public static Manager instance()
+		{
 			return INSTANCE;
 		}
 
-		private Manager() {
-			RLRPGApplication.addSaveLoadListener(new ProfilSaveLoadListener());
-			RLRPGApplication.addLoopListener(new ProfilLoopListener());
+		private Manager()
+		{
+			RLRPGApplication.addSaveLoadListener( new ProfilSaveLoadListener() );
+			RLRPGApplication.addLoopListener( new ProfilLoopListener() );
 		}
 
 		//
 		// listenery
 		//
 
-		static class ProfilLoopListener implements LoopListener {
+		static class ProfilLoopListener implements LoopListener
+		{
 			@Override
-			public void onTick() {
-				Profil local = getLocalProfil();
-				if (local.changed) {
-					local.changed = false;
+			public void onTick()
+			{
+				Profil local= getLocalProfil();
+				if( local.changed ) {
+					local.changed= false;
 					local.raiseOnChanged();
 				}
 			}
 
 			@Override
-			public String getNamePrefix() {
+			public String getNamePrefix()
+			{
 				return "Profil";
 			}
 		}
 
-		static class ProfilSaveLoadListener implements SaveLoadListener {
+		static class ProfilSaveLoadListener implements SaveLoadListener
+		{
 			@Override
-			public Map<String, Object> onSave() {
-				Map<String, Object> save = new HashMap<String, Object>(1);
-				Profil local = Manager.getLocalProfil();
-				save.put("local", local.save());
+			public Map<String, Object> onSave()
+			{
+				Map<String, Object> save= new HashMap<String, Object>( 1 );
+				Profil local= Manager.getLocalProfil();
+				save.put( "local", local.save() );
 
 				return save;
 			}
 
 			@Override
-			public void onLoad(MapWithDefaults save) {
-				Profil local = Manager.getLocalProfil();
-				local.load(save.getMap("local"));
+			public void onLoad( MapWithDefaults save )
+			{
+				Profil local= Manager.getLocalProfil();
+				local.load( save.getMap( "local" ) );
 				// /
 				++local.lvl;
 				// /
 			}
 
 			@Override
-			public String getNamePrefix() {
+			public String getNamePrefix()
+			{
 				return "Profil";
 			}
 		}
@@ -266,20 +292,24 @@ public class Profil implements Serializable {
 	// / getters
 	// /
 
-	public String getNick() {
+	public String getNick()
+	{
 		return nick;
 	}
 
-	public int getLvl() {
+	public int getLvl()
+	{
 		return lvl;
 	}
 
-	public int getXp() {
+	public int getXp()
+	{
 		return xp;
 	}
 
-	public List<Skill> getSkills() {
-		return Collections.unmodifiableList(skills);
+	public List<Skill> getSkills()
+	{
+		return Collections.unmodifiableList( skills );
 	}
 
 }
