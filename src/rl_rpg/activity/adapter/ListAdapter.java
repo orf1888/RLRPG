@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 @SuppressWarnings("rawtypes")
-abstract class ListAdapter extends BaseAdapter //implements OnClickListener
+abstract class ListAdapter extends BaseAdapter // implements OnClickListener
 {
 	Activity activity;
-	
+
 	List data;
 	LayoutInflater inflater;
 	Resources res;
@@ -24,65 +24,59 @@ abstract class ListAdapter extends BaseAdapter //implements OnClickListener
 
 	abstract OnClickListener getOnRowClickListener();
 
-	abstract IViewHolder createViewHolder( View vi );
-	
-	public ListAdapter( Activity a, List d, Resources r, int RLayoutItem )
-	{
-		activity= a;
-		data= d;
-		res= r;
-		this.RLayoutItem= RLayoutItem;
-		inflater= (LayoutInflater) activity.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+	abstract IViewHolder createViewHolder(View vi);
+
+	public ListAdapter(Activity a, List d, Resources r, int RLayoutItem) {
+		activity = a;
+		data = d;
+		res = r;
+		this.RLayoutItem = RLayoutItem;
+		inflater = (LayoutInflater) activity
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	@Override
-	public int getCount()
-	{
-		if( data.size() <= 0 )
+	public int getCount() {
+		if (data.size() <= 0)
 			return 1;
 		return data.size();
 	}
 
 	@Override
-	public Object getItem( int position )
-	{
+	public Object getItem(int position) {
 		return position;
 	}
 
 	@Override
-	public long getItemId( int position )
-	{
+	public long getItemId(int position) {
 		return position;
 	}
 
-	interface IViewHolder
-	{
+	interface IViewHolder {
 		void clear();
 
-		void set( Object model, int position );
+		void set(Object model, int position);
 	}
 
-
-	public View getView( int position, View convertView, ViewGroup parent )
-	{
-		View vi= convertView;
+	public View getView(int position, View convertView, ViewGroup parent) {
+		View vi = convertView;
 		IViewHolder holder;
 
-		if( convertView == null ) {
-			vi= inflater.inflate( RLayoutItem, null );
+		if (convertView == null) {
+			vi = inflater.inflate(RLayoutItem, null);
 
-			holder= createViewHolder( vi );
-			vi.setTag( holder );
+			holder = createViewHolder(vi);
+			vi.setTag(holder);
 		} else {
-			holder= (IViewHolder) vi.getTag();
+			holder = (IViewHolder) vi.getTag();
 		}
 
-		if( data.size() <= position ) {
+		if (data.size() <= position) {
 			holder.clear();
 		} else {
-			holder.set( data.get( position ), position );
+			holder.set(data.get(position), position);
 
-			vi.setOnClickListener( getOnRowClickListener() );
+			vi.setOnClickListener(getOnRowClickListener());
 		}
 		return vi;
 	}
