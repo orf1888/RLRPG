@@ -3,16 +3,16 @@ package rl_rpg.model;
 public class ChallengeListModel
 {
 
-	private String challengeName = "";
+	private String challengeName= "";
 	/* Ka¿dy challenge powinien mieæ swój obrazek w zale¿noœci od grupy do której jest przydzielony */
 	//private String Image = "";
-	private String challengeDescr = "";
+	private String challengeDescr= "";
 
 	/*********** Set Methods ******************/
 
 	public void setChallengeName( String challengeName )
 	{
-		this.challengeName = challengeName;
+		this.challengeName= challengeName;
 	}
 
 	/*
@@ -21,7 +21,7 @@ public class ChallengeListModel
 
 	public void setChallengeDescr( String challengeDescr )
 	{
-		this.challengeDescr = challengeDescr;
+		this.challengeDescr= challengeDescr;
 	}
 
 	/*********** Get Methods ****************/

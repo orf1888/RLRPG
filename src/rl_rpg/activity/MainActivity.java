@@ -35,7 +35,7 @@ public class MainActivity extends Activity
 			final Context context= parent.getApplicationContext();
 			/////////////////////////
 			//// onClick
-			challenge.setOnClickListener( new OnClickListener()
+			challenge.setOnClickListener( new View.OnClickListener()
 			{
 				@Override
 				public void onClick( View v )
@@ -44,7 +44,7 @@ public class MainActivity extends Activity
 					Utils.startNewActivity( context, ChallengeListViewActivity.class );
 				}
 			} );
-			community.setOnClickListener( new OnClickListener()
+			community.setOnClickListener( new View.OnClickListener()
 			{
 				@Override
 				public void onClick( View v )
@@ -97,7 +97,7 @@ public class MainActivity extends Activity
 		RLRPGApplication.performSave();
 	}
 
-	
+
 	@Override
 	protected void onResume()
 	{
@@ -111,8 +111,26 @@ public class MainActivity extends Activity
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu )
 	{
-			// Inflate the menu; this adds items to the action bar if it is present.
-			getMenuInflater().inflate( R.menu.main, menu );
-			return true;
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate( R.menu.main, menu );
+		return true;
+	}
+
+	public void onBackPressed()
+	{
+
+		OnClickListener exitListener= new OnClickListener()
+		{
+
+			@Override
+			public void onClick( DialogInterface dialog, int which )
+			{
+				L.log( "Finish app!" );
+				finish();
+			}
+		};
+		DialogBuilder exitDialog= new DialogBuilder( MainActivity.this, "Exit app", "Do you realy want to exit?",
+				exitListener, DialogBuilder.createDefaultReturnListener(), "Yes", "No" );
+		exitDialog.showDialog();
 	}
 }

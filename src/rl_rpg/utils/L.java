@@ -6,9 +6,9 @@ import java.io.StringWriter;
 
 public class L
 {
-	private static final String tag_normal = "rl_rpg_normal";
-	private static final String tag_assert = "rl_rpg_assert";
-	private static final String tag_error = "rl_rpg_error";
+	private static final String tag_normal= "rl_rpg_normal";
+	private static final String tag_assert= "rl_rpg_assert";
+	private static final String tag_error= "rl_rpg_error";
 
 	public static void log( String s )
 	{
@@ -35,8 +35,8 @@ public class L
 
 	private static void logError( String tag, Exception e )
 	{
-		StringWriter sw = new StringWriter();
-		PrintWriter s = new PrintWriter( sw );
+		StringWriter sw= new StringWriter();
+		PrintWriter s= new PrintWriter( sw );
 		e.printStackTrace( s );
 		log( tag, sw.getBuffer().toString() );
 	}

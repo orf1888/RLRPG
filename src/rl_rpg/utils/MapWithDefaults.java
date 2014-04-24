@@ -19,14 +19,14 @@ public class MapWithDefaults
 
 	public MapWithDefaults( Object map )
 	{
-		this.map = (Map) map;
+		this.map= (Map) map;
 	}
 
 	public Object get( String key, Object deflt )
 	{
-		Object result = null;
+		Object result= null;
 		if( map != null )
-			result = map.get( key );
+			result= map.get( key );
 		if( result != null )
 			return result;
 		//else
@@ -37,7 +37,7 @@ public class MapWithDefaults
 
 	public MapWithDefaults getMap( String key )
 	{
-		Map result = (Map) map.get( key );
+		Map result= (Map) map.get( key );
 		return new MapWithDefaults( result );
 	}
 }

@@ -47,7 +47,7 @@ public class CommunityActivity extends Activity
 		super.onPause();
 		RLRPGApplication.performSave();
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu )
 	{

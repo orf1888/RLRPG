@@ -45,7 +45,7 @@ public class MyAccountActivity extends Activity
 		RLRPGApplication.performSave();
 	}
 
-	
+
 	@Override
 	protected void onResume()
 	{

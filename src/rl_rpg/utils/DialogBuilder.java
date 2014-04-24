@@ -14,11 +14,11 @@ public class DialogBuilder extends AlertDialog
 			OnClickListener negButListener, String posButtonText, String negButtonText )
 	{
 		super( context );
-		builder = new Builder( context );
+		builder= new Builder( context );
 		builder.setTitle( title );
 		builder.setMessage( message );
 		//Potrzebujemy dialogu z tylko 1 guzikiem "wróæ/ok"
-		if( (posButListener == null && negButListener == null)||negButListener==null||posButListener==null )
+		if( (posButListener == null && negButListener == null) || negButListener == null || posButListener == null )
 			builder.setPositiveButton( posButtonText, createDefaultReturnListener() );
 		else {// Potrzebujemy dialogu z dwoma guzikami
 			builder.setPositiveButton( posButtonText, posButListener );

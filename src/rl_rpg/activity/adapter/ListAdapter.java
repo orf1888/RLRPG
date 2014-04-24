@@ -11,11 +11,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+
 @SuppressWarnings("rawtypes")
 abstract class ListAdapter extends BaseAdapter //implements OnClickListener
 {
 	Activity activity;
-	
+
 	List data;
 	LayoutInflater inflater;
 	Resources res;
@@ -25,7 +26,7 @@ abstract class ListAdapter extends BaseAdapter //implements OnClickListener
 	abstract OnClickListener getOnRowClickListener();
 
 	abstract IViewHolder createViewHolder( View vi );
-	
+
 	public ListAdapter( Activity a, List d, Resources r, int RLayoutItem )
 	{
 		activity= a;

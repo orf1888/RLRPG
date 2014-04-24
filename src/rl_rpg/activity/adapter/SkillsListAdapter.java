@@ -38,7 +38,7 @@ public class SkillsListAdapter extends ListAdapter
 
 	public static class ViewHolder implements IViewHolder
 	{
-		ViewHolder( View viev)
+		ViewHolder( View viev )
 		{
 			skillName = (TextView) viev.findViewById( R.id.textSkillName );
 			skillValue = (ProgressBar) viev.findViewById( R.id.progSkill );

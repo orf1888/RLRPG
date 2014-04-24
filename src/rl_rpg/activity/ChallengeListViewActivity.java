@@ -58,14 +58,14 @@ public class ChallengeListViewActivity extends Activity
 		}
 	}
 
-	
+
 	@Override
 	protected void onPause()
 	{
 		super.onPause();
 		RLRPGApplication.performSave();
 	}
-	
+
 	/***************** This function used by adapter ****************/
 
 }
