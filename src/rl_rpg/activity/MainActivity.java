@@ -1,12 +1,16 @@
 package rl_rpg.activity;
 
+import rl_rpg.utils.DialogBuilder;
+import rl_rpg.utils.L;
 import rl_rpg.utils.Utils;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -118,7 +122,6 @@ public class MainActivity extends Activity
 
 	public void onBackPressed()
 	{
-
 		OnClickListener exitListener= new OnClickListener()
 		{
 

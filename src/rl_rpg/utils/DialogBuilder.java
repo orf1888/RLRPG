@@ -26,7 +26,7 @@ public class DialogBuilder extends AlertDialog
 		}
 	}
 
-	private OnClickListener createDefaultReturnListener()
+	public static OnClickListener createDefaultReturnListener()
 	{
 		return new OnClickListener()
 		{
