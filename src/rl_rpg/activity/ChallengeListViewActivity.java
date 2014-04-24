@@ -56,9 +56,16 @@ public class ChallengeListViewActivity extends Activity
 			/******** Take Model Object in ArrayList **********/
 			CustomListViewValuesArr.add( sched );
 		}
-
 	}
 
+	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		RLRPGApplication.performSave();
+	}
+	
 	/***************** This function used by adapter ****************/
 
 }

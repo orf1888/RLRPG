@@ -42,6 +42,13 @@ public class CommunityActivity extends Activity
 	}
 
 	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		RLRPGApplication.performSave();
+	}
+	
+	@Override
 	public boolean onCreateOptionsMenu( Menu menu )
 	{
 		getMenuInflater().inflate( R.menu.community, menu );

@@ -62,6 +62,12 @@ public class PlayerListViewActivity extends Activity
 		}
 	}
 	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		RLRPGApplication.performSave();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu )
