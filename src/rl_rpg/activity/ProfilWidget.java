@@ -2,11 +2,9 @@ package rl_rpg.activity;
 
 import rl_rpg.model.Profil;
 import rl_rpg.model.Profil.OnChangeProfilListener;
-import rl_rpg.utils.L;
 import rl_rpg.utils.Utils;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -23,21 +21,29 @@ public class ProfilWidget
 
 	ProfilWidget( Activity parent, boolean canClickMyAccount )
 	{
-		this.parent = parent;
-		this.canClickMyAccount = canClickMyAccount;
+		this.parent= parent;
+		this.canClickMyAccount= canClickMyAccount;
 	}
 
-	// funkcja wykonywana automatycznie dla kazdej zmiany zachodzacej w profil
+	/** 
+	 * funkcja wykonywana automatycznie dla kazdej zmiany zachodzacej w profil
+	 * dodana w listenerze do modelu - profilu
+	 */
 	public void updateProfil()
 	{
-		nick.setText( "NICK: _" + Profil.getLocal().getNick() );
+		nick.setText( "NICK: " + Profil.getLocal().getNick() );
 		lvl.setText( "LVL: " + Profil.getLocal().getLvl() );
 		xp.setText( "XP: " + Profil.getLocal().getXp() );
 	}
 
+	/**
+	 * ustawia ewentualne listenery. Uwaga, jesli cos jest wywolane poza w¹tkiem UI, musi byc uzyte 
+	 * activity.runOnUiThread( new Runnable()
+	 * Uwaga, jesli jakis listener odwo³uje siê poza UI (np. do modelu), trzeba go wywaliæ w funkcji dropListeners
+	 */
 	public void setListeners()
 	{
-		final Context context = parent.getApplicationContext();
+		final Context context= parent.getApplicationContext();
 		/////////////////////////
 		//// onChange
 		Profil.getLocal().addOnChangeListener( "ProfilWidget", new OnChangeProfilListener()
@@ -64,14 +70,17 @@ public class ProfilWidget
 				@Override
 				public void onClick( View v )
 				{
-					Utils.startNewActivity(context, MyAccountActivity.class);
+					Utils.startNewActivity( context, MyAccountActivity.class );
 				}
 			} );
 		}
 	}
-	
+
+	/**
+	 * tutaj usuwamy listenery, jesli dodaliœmy jakieœ do modelu
+	 */
 	public void dropListeners()
 	{
-		Profil.getLocal().removeOnChangeListener("ProfilWidget");
+		Profil.getLocal().removeOnChangeListener( "ProfilWidget" );
 	}
 }

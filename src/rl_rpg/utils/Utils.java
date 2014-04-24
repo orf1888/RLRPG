@@ -1,6 +1,5 @@
 package rl_rpg.utils;
 
-import rl_rpg.activity.CommunityActivity;
 import android.content.Context;
 import android.content.Intent;
 

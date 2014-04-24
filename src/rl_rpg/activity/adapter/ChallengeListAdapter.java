@@ -1,169 +1,101 @@
 package rl_rpg.activity.adapter;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import rl_rpg.activity.ChallengeListViewActivity;
 import rl_rpg.activity.R;
 import rl_rpg.model.ChallengeListModel;
-
+import rl_rpg.utils.DialogBuilder;
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Resources;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class ChallengeListAdapter extends BaseAdapter implements OnClickListener
+public class ChallengeListAdapter extends ListAdapter
 {
-
-	/*********** Declare Used Variables *********/
-	private Activity activity;
-	private ArrayList data;
-	private static LayoutInflater inflater = null;
-	public Resources res;
-	//	AchivListModel tempValues = null;
-	int i = 0;
-
-	/*************  CustomAdapter Constructor *****************/
-	public ChallengeListAdapter( Activity a, ArrayList d, Resources resLocal )
+	@SuppressWarnings("rawtypes")
+	public ChallengeListAdapter( Activity a, List d, Resources res )
 	{
-
-		/********** Take passed values **********/
-		activity = a;
-		data = d;
-		res = resLocal;
-
-		/***********  Layout inflator to call external xml layout () ***********/
-		inflater = (LayoutInflater) activity.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-
-	}
-
-	/******** What is the size of Passed Arraylist Size ************/
-	public int getCount()
-	{
-
-		if( data.size() <= 0 )
-			return 1;
-		return data.size();
-	}
-
-	public Object getItem( int position )
-	{
-		return position;
-	}
-
-	public long getItemId( int position )
-	{
-		return position;
-	}
-
-	/********* Create a holder Class to contain inflated xml file elements *********/
-	public static class ViewHolder
-	{
-		ViewHolder( View viev )
-		{
-			challengeName = (TextView) viev.findViewById( R.id.challengeName );
-			challengeDescrip = (TextView) viev.findViewById( R.id.challengeDesription );
-			image = (ImageView) viev.findViewById( R.id.challengeImg );
-			challengeStart = (Button) viev.findViewById( R.id.challengeStart );
-		}
-
-		public TextView challengeName;
-		public TextView challengeDescrip;
-		//public TextView textWide;
-		public ImageView image;
-		public Button challengeStart;
-
-	}
-
-	/****** Depends upon data size called for each row , Create each ListView row *****/
-	public View getView( int position, View convertView, ViewGroup parent )
-	{
-
-		View vi = convertView;
-		ViewHolder holder;
-
-		if( convertView == null ) {
-
-			/****** Inflate tabitem.xml file for each row ( Defined below ) *******/
-			vi = inflater.inflate( R.layout.challenge_item, null );
-
-			/****** View Holder Object to contain tabitem.xml file elements ******/
-			holder = new ViewHolder( vi );
-
-			/************  Set holder with LayoutInflater ************/
-			vi.setTag( holder );
-		} else {
-			holder = (ViewHolder) vi.getTag();
-		}
-
-		if( data.size() <= 0 ) {
-			holder.challengeName.setText( "No Data" );
-
-		} else {
-			/***** Get each Model object from Arraylist ********/
-			//			tempValues = null;
-			//			tempValues = (AchivListModel) data.get( position );
-
-			/************  Set Model values in Holder elements ***********/
-
-			ChallengeListModel tempValues = (ChallengeListModel) data.get( position );
-
-			holder.challengeName.setText( tempValues.getChallengeName() );
-			holder.challengeDescrip.setText( tempValues.getChallengeDescr() );
-			holder.challengeStart.setTag( new Integer( position ) );
-			holder.challengeStart.setOnClickListener( new OnClickListener()
-			{
-
-				@Override
-				public void onClick( View v )
-				{
-					Integer position = (Integer) v.getTag();
-					ChallengeListModel arch = (ChallengeListModel) data.get( position );
-					//String x = holder.challengeName.getText().toString();
-					Toast.makeText( inflater.getContext(), "Zacz¹³eœ " + arch.getChallengeName(), Toast.LENGTH_SHORT )
-							.show();
-				}
-			} );
-
-			/******** Set Item Click Listner for LayoutInflater for each row *******/
-
-			vi.setOnClickListener( new OnItemClickListener( position ) );
-		}
-		return vi;
+		super( a, d, res, R.layout.challenge_item );
 	}
 
 	@Override
-	public void onClick( View v )
+	OnClickListener getOnRowClickListener()
 	{
-		Log.v( "CustomAdapter", "=====Row button clicked=====" );
+		return rowOnClickListener;
 	}
 
-	/********* Called when Item click in ListView ************/
-	private class OnItemClickListener implements OnClickListener
+	@Override
+	IViewHolder createViewHolder( View vi )
 	{
-		private int mPosition;
+		return new ViewHolder( vi, this );
+	}
 
-		OnItemClickListener( int position )
+	public static class ViewHolder implements IViewHolder
+	{
+		ViewHolder( View viev, ListAdapter parent )
 		{
-			mPosition = position;
+			challengeName= (TextView) viev.findViewById( R.id.challengeName );
+			challengeDescrip= (TextView) viev.findViewById( R.id.challengeDesription );
+			image= (ImageView) viev.findViewById( R.id.challengeImg );
+			challengeStart= (Button) viev.findViewById( R.id.challengeStart );
+			this.parent= parent;
+		}
+
+		TextView challengeName;
+		TextView challengeDescrip;
+		//public TextView textWide;
+		ImageView image;
+		Button challengeStart;
+		ListAdapter parent;
+		int position;
+
+		@Override
+		public void clear()
+		{
+			challengeName.setText( "No Data" );
 		}
 
 		@Override
-		public void onClick( View arg0 )
+		public void set( Object model, int position )
 		{
-			ChallengeListViewActivity sct = (ChallengeListViewActivity) activity;
-			/****  Call  onItemClick Method inside CustomListViewAndroidExample Class ( See Below )****/
-
-			sct.onItemClick( mPosition );
+			this.position= position;
+			ChallengeListModel tempValues= (ChallengeListModel) model;
+			challengeName.setText( tempValues.getChallengeName() );
+			challengeDescrip.setText( tempValues.getChallengeDescr() );
+			challengeStart.setTag( Integer.valueOf( position ) );
+			challengeStart.setOnClickListener( new OnClickListener()
+			{
+				@Override
+				public void onClick( View v )
+				{
+					Integer position= (Integer) v.getTag();
+					ChallengeListModel arch= (ChallengeListModel) parent.data.get( position );
+					Toast.makeText( parent.inflater.getContext(),
+							"Zacz¹³eœ " + arch.getChallengeName(),
+							Toast.LENGTH_SHORT ).show();
+				}
+			} );
 		}
 	}
+
+	OnClickListener rowOnClickListener= new OnClickListener()
+	{
+		@Override
+		public void onClick( View view )
+		{
+			ViewHolder h= (ViewHolder) view.getTag();
+
+			ChallengeListModel challenge= (ChallengeListModel) data.get( h.position );
+			// To jest w³asnie sytuacja kiedy potrzebujemy w dialogu tylko jednego
+			// przycisku, który wraca do Activity
+			DialogBuilder dialog= new DialogBuilder( activity, challenge.getChallengeName(),
+					challenge.getChallengeDescr(), null, null, "OK", null );
+			dialog.showDialog();
+		}
+	};
 }

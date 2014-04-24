@@ -7,6 +7,7 @@ import java.util.Map;
  * klasa obudowuje zwyk³¹ mapê. Nie musi ona istnieæ (mo¿na podaæ null)
  * wywo³anie get(key, default) zwraca wartoœæ z mapy (jeœli istnieje) lub wartoœc default w pozosta³ym przypadku
  */
+@SuppressWarnings("rawtypes")
 public class MapWithDefaults
 {
 	Map map;

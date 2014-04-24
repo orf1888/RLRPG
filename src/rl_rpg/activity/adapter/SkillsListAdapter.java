@@ -1,63 +1,44 @@
 package rl_rpg.activity.adapter;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import rl_rpg.activity.MyAccountActivity;
 import rl_rpg.activity.R;
+import rl_rpg.activity.SkillTainingDialog;
 import rl_rpg.model.Skill;
+import rl_rpg.utils.DialogBuilder;
 import android.app.Activity;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
-public class SkillsListAdapter extends BaseAdapter implements OnClickListener
+public class SkillsListAdapter extends ListAdapter
 {
-
-	private Activity activity;
-	/* Docelowo zamaist String powinny byæ Skille */
-	private ArrayList<?> data;
-	private static LayoutInflater inflater = null;
-	public Resources res;
-	int i = 0;
-
-	public SkillsListAdapter( Activity activity, ArrayList<?> data, Resources res )
+	@SuppressWarnings("rawtypes")
+	public SkillsListAdapter( Activity a, List d, Resources res )
 	{
-		this.activity = activity;
-		this.data = data;
-		this.res = res;
-		inflater = (LayoutInflater) activity.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-
+		super( a, d, res, R.layout.skill_item );
+	}
+	
+	@Override
+	OnClickListener getOnRowClickListener()
+	{
+		return rowOnClickListener;
 	}
 
 	@Override
-	public int getCount()
+	IViewHolder createViewHolder( View vi )
 	{
-		if( data.size() <= 0 )
-			return 1;
-		else
-			return data.size();
+		return new ViewHolder( vi );
 	}
 
-	public Object getItem( int position )
+	public static class ViewHolder implements IViewHolder
 	{
-		return position;
-	}
-
-	public long getItemId( int position )
-	{
-		return position;
-	}
-
-	public static class ViewHolder
-	{
-		ViewHolder( View viev )
+		ViewHolder( View viev)
 		{
 			skillName = (TextView) viev.findViewById( R.id.textSkillName );
 			skillValue = (ProgressBar) viev.findViewById( R.id.progSkill );
@@ -65,61 +46,60 @@ public class SkillsListAdapter extends BaseAdapter implements OnClickListener
 
 		public TextView skillName;
 		public ProgressBar skillValue;
-	}
-
-	public View getView( int position, View convertView, ViewGroup parent )
-	{
-
-		View vi = convertView;
-		ViewHolder holder;
-
-		if( convertView == null ) {
-			vi = inflater.inflate( R.layout.skill_item, null );
-			holder = new ViewHolder( vi );
-			vi.setTag( holder );
-		} else {
-			holder = (ViewHolder) vi.getTag();
-		}
-
-		if( data.size() <= 0 ) {
-			holder.skillName.setText( "No Skill's!" );
-
-		} else {
-
-
-			Skill tempValues = (Skill) data.get( position );
-			/* Set data on screen */
-			holder.skillName.setText( tempValues.getName() );
-			holder.skillValue.setProgress( tempValues.getValue() );
-
-			vi.setOnClickListener( new OnItemClickListener( position ) );
-		}
-		return vi;
-	}
-
-
-	private class OnItemClickListener implements OnClickListener
-	{
-		private int itemPos;
-
-		OnItemClickListener( int position )
-		{
-			itemPos = position;
-		}
-
+		int position;
+		
 		@Override
-		public void onClick( View arg0 )
+		public void clear()
 		{
-			MyAccountActivity skill = (MyAccountActivity) activity;
-			skill.onItemClick( itemPos );
+			skillName.setText( "No Skill" );
+		}
+		
+		@Override
+		public void set( Object model, int position )
+		{
+			this.position= position;
+			Skill tempValue = (Skill) model;
+			skillName.setText( tempValue.getName() );
+			skillValue.setProgress( tempValue.getValue() );
 		}
 	}
+	
+	//Listenery
+	android.content.DialogInterface.OnClickListener returnListener=new android.content.DialogInterface.OnClickListener() {
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			return;
+		}
+	};
+	
+	//android.content.DialogInterface.OnClickListener trainListener=new 
+	class SkillDialogOnCliclListener implements android.content.DialogInterface.OnClickListener {
+		
+		Skill skill;
+		
+		SkillDialogOnCliclListener( Skill skill ){
+			this.skill= skill;
+		}
+		
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			SkillTainingDialog improveDialog=new SkillTainingDialog( activity, skill.getName(), "How many lines of code did you wrote today?", null, null, "Submit", "Back", new EditText( activity ) );
+			improveDialog.showDialog();	
+		}
+	};
 
-	@Override
-	public void onClick( View v )
+	OnClickListener rowOnClickListener= new OnClickListener()
 	{
-		// TODO Auto-generated method stub
+		@Override
+		public void onClick( View view )
+		{
+			ViewHolder h= (ViewHolder) view.getTag();
 
-	}
-
+			Skill skill= (Skill) data.get( h.position );
+			SkillDialogOnCliclListener trainListener = new SkillDialogOnCliclListener(skill);
+			
+			DialogBuilder dialog=new DialogBuilder(activity, skill.getName(), skill.getDescr(), trainListener, returnListener, "Train", "Back");
+			dialog.showDialog();
+		}
+	};
 }

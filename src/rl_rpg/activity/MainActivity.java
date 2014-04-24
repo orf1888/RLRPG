@@ -1,16 +1,8 @@
 package rl_rpg.activity;
 
-import java.io.IOException;
-
-import rl_rpg.activity.R;
-import rl_rpg.model.Profil;
-import rl_rpg.model.Profil.OnChangeProfilListener;
-import rl_rpg.utils.L;
 import rl_rpg.utils.Utils;
-
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -18,12 +10,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class MainActivity extends Activity
 {
-
 	static class EkranGlowny
 	{
 		public Button challenge, community;
@@ -32,13 +22,17 @@ public class MainActivity extends Activity
 
 		EkranGlowny( Activity parent )
 		{
-			this.parent = parent;
+			this.parent= parent;
 		}
 
-
+		/**
+		 * ustawia ewentualne listenery. Uwaga, jesli cos jest wywolane poza w¹tkiem UI, musi byc uzyte 
+		 * activity.runOnUiThread( new Runnable()
+		 * Uwaga, jesli jakis listener odwo³uje siê poza UI (np. do modelu), trzeba go wywaliæ w funkcji dropListeners
+		 */
 		public void setListeners()
 		{
-			final Context context = parent.getApplicationContext();
+			final Context context= parent.getApplicationContext();
 			/////////////////////////
 			//// onClick
 			challenge.setOnClickListener( new OnClickListener()
@@ -47,7 +41,7 @@ public class MainActivity extends Activity
 				public void onClick( View v )
 				{
 					/* Dzia³a? */
-					Utils.startNewActivity(context, ChallengeListViewActivity.class);
+					Utils.startNewActivity( context, ChallengeListViewActivity.class );
 				}
 			} );
 			community.setOnClickListener( new OnClickListener()
@@ -55,48 +49,41 @@ public class MainActivity extends Activity
 				@Override
 				public void onClick( View v )
 				{
-					Utils.startNewActivity(context, CommunityActivity.class);
+					Utils.startNewActivity( context, CommunityActivity.class );
 					//Toast.makeText( context, "Klikn¹³eœ community!", Toast.LENGTH_SHORT ).show();
 				}
 			} );
 		}
-		
+
+		/**
+		 * tutaj usuwamy listenery, jesli dodaliœmy jakieœ do modelu
+		 */
 		public void dropListeners()
 		{
 		}
 	}
 
-	static EkranGlowny ekranGlowny;
-	static ProfilWidget ekranProfil;
+	private EkranGlowny ekranGlowny;
+	private ProfilWidget ekranProfil;
 
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState )
 	{
 		super.onCreate( savedInstanceState );
-		
-		try {
-			RLRPGApplication.performLoad();
-		} catch ( Exception e ) {
-			L.logError( e );
-		}
 
-		RLRPGApplication.registerActivity( this );
-
-		/* init */
-		ekranGlowny = new EkranGlowny( this );
-		ekranProfil = new ProfilWidget( this, true );
-
-		/* init view */
 		setContentView( R.layout.activity_main );
-		ekranProfil.nick = (TextView) findViewById( R.id.textLblNick );
-		ekranProfil.lvl = (TextView) findViewById( R.id.textLblLvl );
-		ekranProfil.xp = (TextView) findViewById( R.id.textLblXp );
-		ekranProfil.myAccount = (ImageButton) findViewById( R.id.myAcc );
+
+		ekranProfil= new ProfilWidget( this, true );
+		ekranProfil.nick= (TextView) findViewById( R.id.textLblNick );
+		ekranProfil.lvl= (TextView) findViewById( R.id.textLblLvl );
+		ekranProfil.xp= (TextView) findViewById( R.id.textLblXp );
+		ekranProfil.myAccount= (ImageButton) findViewById( R.id.myAcc );
 		ekranProfil.updateProfil();
 
-		ekranGlowny.challenge = (Button) findViewById( R.id.btnChallenge );
-		ekranGlowny.community = (Button) findViewById( R.id.btnCom );
+		ekranGlowny= new EkranGlowny( this );
+		ekranGlowny.challenge= (Button) findViewById( R.id.btnChallenge );
+		ekranGlowny.community= (Button) findViewById( R.id.btnCom );
 	}
 
 
@@ -104,15 +91,13 @@ public class MainActivity extends Activity
 	protected void onPause()
 	{
 		super.onPause();
-		try {
-			ekranGlowny.dropListeners();
-			ekranProfil.dropListeners();
-			RLRPGApplication.performSave();
-		} catch ( IOException e ) {
-			L.logError( e );
-		}
+		ekranGlowny.dropListeners();
+		ekranProfil.dropListeners();
+
+		RLRPGApplication.performSave();
 	}
 
+	
 	@Override
 	protected void onResume()
 	{
@@ -126,15 +111,8 @@ public class MainActivity extends Activity
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu )
 	{
-		try {
 			// Inflate the menu; this adds items to the action bar if it is present.
 			getMenuInflater().inflate( R.menu.main, menu );
 			return true;
-		} catch ( Exception e ) {
-			L.logError( e );
-			return false;
-		}
 	}
-
-
 }

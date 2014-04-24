@@ -1,10 +1,8 @@
 package rl_rpg.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import rl_rpg.model.Profil.OnChangeProfilListener;
 import rl_rpg.utils.L;
 import rl_rpg.utils.MapWithDefaults;
 
@@ -22,15 +20,15 @@ public class Skill
 	///
 	/// model modifiers
 	///
-	
+
 	public void addValue( int v )
 	{
 		L._assert( v > 0 && value < 1000000 );
-		if( value+v < 100 )
+		if( value + v < 100 )
 			value+= v;
 		parent.raiseSkillChanged();
 	}
-	
+
 
 	///
 	/// private methods
@@ -38,7 +36,7 @@ public class Skill
 
 	Object save()
 	{
-		Map<String, Object> save = new HashMap<String, Object>( 2 );
+		Map<String, Object> save= new HashMap<String, Object>( 2 );
 		save.put( "value", value );
 		save.put( "type", type.nr );
 		return save;
@@ -46,26 +44,26 @@ public class Skill
 
 	static Skill loadOrNull( MapWithDefaults save, Profil parent )
 	{
-		SkillType type = SkillType.getSkillByNr( (int) (Integer) save.get( "type", 0 ) );
+		SkillType type= SkillType.getSkillByNr( (int) (Integer) save.get( "type", 0 ) );
 		if( type == null )
 			return null;
 
-		Skill result = new Skill( type, parent );
-		result.value = (int) (Integer) save.get( "value", 0 );
+		Skill result= new Skill( type, parent );
+		result.value= (int) (Integer) save.get( "value", 0 );
 
 		// tmp
 		if( type.name.equals( "Test2" ) )
-			result.value = (result.value > 80) ? result.value : result.value + 15;
+			result.value= (result.value > 80) ? result.value : result.value + 15;
 		// tmp
 		return result;
 	}
 
 	Skill( SkillType type, Profil parent )
 	{
-		L._assert( type!=null );
-		L._assert( parent!=null );
-		this.value = 0;
-		this.type = type;
+		L._assert( type != null );
+		L._assert( parent != null );
+		this.value= 0;
+		this.type= type;
 		this.parent= parent;
 	}
 
@@ -74,7 +72,7 @@ public class Skill
 	{
 		return new Skill( type, parent );
 	}*/
-	
+
 	///
 	/// classes
 	///
@@ -87,14 +85,14 @@ public class Skill
 
 		SkillType( int nr, String name, String descr )
 		{
-			this.nr = nr;
-			this.name = name;
-			this.descr = descr;
+			this.nr= nr;
+			this.name= name;
+			this.descr= descr;
 		}
 
 		static SkillType getSkillByNr( int n )
 		{
-			for (SkillType s : values())
+			for( SkillType s : values() )
 				if( s.nr == n )
 					return s;
 			return null;
@@ -105,7 +103,7 @@ public class Skill
 		String descr;
 	}
 
-	
+
 	///
 	/// getters
 	///
