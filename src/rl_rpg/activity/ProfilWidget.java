@@ -70,7 +70,7 @@ public class ProfilWidget
 				@Override
 				public void onClick( View v )
 				{
-					Utils.startNewActivity( context, MyAccountActivity.class,-1 );
+					Utils.startNewActivity( context, MyAccountActivity.class, null );
 				}
 			} );
 		}

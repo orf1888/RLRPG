@@ -28,7 +28,7 @@ public class OtherPlayerAccountActivity extends Activity
 		// init Views
 		setTitle( "Player: "+player.getNick()+ " LVL: "+player.getLvl() );
 		playerSkillsList= (ListView) findViewById( R.id.skillsList );
-		playerSkillsList.setAdapter( new SkillsListAdapter( this, Profil.getLocal().getSkills(), getResources(), false ) );
+		playerSkillsList.setAdapter( new SkillsListAdapter( this, player.getSkills(), getResources(), false ) );
 	}
 
 	@Override

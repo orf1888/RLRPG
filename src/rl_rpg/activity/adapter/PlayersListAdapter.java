@@ -8,6 +8,7 @@ import rl_rpg.model.Profil;
 import rl_rpg.utils.Utils;
 import android.app.Activity;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -56,7 +57,9 @@ public class PlayersListAdapter extends ListAdapter
 				{
 					Integer position= (Integer) v.getTag();
 					Profil profil= (Profil) parent.data.get( position );
-					Utils.startNewActivity(parent.inflater.getContext(), OtherPlayerAccountActivity.class, profil.getLocalId());
+					Bundle b = new Bundle();
+					b.putInt("ProfilID", profil.getLocalId());
+					Utils.startNewActivity(parent.inflater.getContext(), OtherPlayerAccountActivity.class, b );
 					//Toast.makeText( parent.inflater.getContext(), "Klikn¹³eœ " + profil.getNick(), Toast.LENGTH_SHORT ).show();
 				}
 			} );

@@ -44,7 +44,7 @@ public class MainActivity extends Activity
 				public void onClick( View v )
 				{
 					/* Dzia³a? */
-					Utils.startNewActivity( context, ChallengeListViewActivity.class,-1 );
+					Utils.startNewActivity( context, ChallengeListViewActivity.class, null );
 				}
 			} );
 			community.setOnClickListener( new View.OnClickListener()
@@ -52,7 +52,7 @@ public class MainActivity extends Activity
 				@Override
 				public void onClick( View v )
 				{
-					Utils.startNewActivity( context, CommunityActivity.class,-1 );
+					Utils.startNewActivity( context, CommunityActivity.class, null );
 					//Toast.makeText( context, "Klikn¹³eœ community!", Toast.LENGTH_SHORT ).show();
 				}
 			} );
