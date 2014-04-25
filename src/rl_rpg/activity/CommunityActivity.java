@@ -48,7 +48,7 @@ public class CommunityActivity extends Activity
 			@Override
 			public void onClick( View v )
 			{
-				Utils.startNewActivity( CommunityActivity.this, PlayerListViewActivity.class, -1 );
+				Utils.startNewActivity( CommunityActivity.this, PlayerListViewActivity.class, null );
 			}
 		} );
 		searchPlayer= (Button) findViewById( R.id.btnSearchPlay );
