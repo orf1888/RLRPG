@@ -82,12 +82,12 @@ public class RLRPGApplication extends Application
 
 
 	@SuppressWarnings("unchecked")
-	public static void performLoad()
+	private static boolean performLoad()
 	{
 		File file= getSaveFile();
 		if( file == null || !file.isFile() ) {
 			L.log( "performLoad no file" );
-			return;
+			return false;
 		}
 
 		ObjectInputStream s= null;
@@ -111,9 +111,12 @@ public class RLRPGApplication extends Application
 					continue;
 				listener.onLoad( new MapWithDefaults( maps.get( key ) ) );
 			}
+			
+			return true;
 
 		} catch ( Exception e ) {
 			L.logError( e );
+			return false;
 		} finally {
 			try {
 				s.close();
@@ -122,6 +125,14 @@ public class RLRPGApplication extends Application
 		}
 	}
 
+	private static void performLoadDefaults()
+	{
+		for( SaveLoadListener listener : saveLoadListeners.values() ) {
+			if( listener == null )
+				continue;
+			listener.onLoad( new MapWithDefaults(null) );
+		}
+	}
 
 	//
 	// private methods
@@ -133,7 +144,9 @@ public class RLRPGApplication extends Application
 
 		Profil.Manager.instance().init();
 
-		RLRPGApplication.performLoad();
+		boolean loaded = RLRPGApplication.performLoad();
+		if( !loaded )
+			RLRPGApplication.performLoadDefaults();
 
 		/* background */
 		if( mainThread == null ) {
@@ -142,6 +155,7 @@ public class RLRPGApplication extends Application
 			mainThread.start();
 		}
 	}
+
 
 	private static File getSaveFile()
 	{

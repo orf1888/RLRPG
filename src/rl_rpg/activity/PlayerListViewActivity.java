@@ -24,7 +24,6 @@ public class PlayerListViewActivity extends Activity
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.players_list );
 
-		/*
 		if( savedInstanceState != null && savedInstanceState.getBoolean( "saved", false ) == true ) {
 			// restore save
 			int size= savedInstanceState.getInt( "player_count", 0 );
@@ -36,8 +35,6 @@ public class PlayerListViewActivity extends Activity
 			// create default
 			setListData();
 		}
-*/
-		setListData();
 
 		Resources res= getResources();
 		list= (ListView) findViewById( R.id.playersList );

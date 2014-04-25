@@ -1,5 +1,7 @@
 package rl_rpg.activity;
 
+import rl_rpg.model.Profil;
+import rl_rpg.utils.L;
 import rl_rpg.utils.Utils;
 import android.app.Activity;
 import android.os.Bundle;
@@ -22,15 +24,27 @@ public class CommunityActivity extends Activity
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_community );
 
+		if( savedInstanceState != null && savedInstanceState.getBoolean( "saved", false ) == true ) {
+			// restore save
+			//int size= savedInstanceState.getInt( "player_count", 0 );
+		} else {
+			// create default
+			
+			/*1. zrobic aplikacje
+			   -aplikacja pozwala pobrac osobe
+			   -aplikacja ma przyciski do zarzadzania osobami, online osobami itd
+			  2. 
+			 */
+		}
+		
 		//init buttons
 		regPlayers= (TextView) findViewById( R.id.textCommRegPlay );
 		onlPlayers= (TextView) findViewById( R.id.textCommOnlPlay );
 		onlFriends= (TextView) findViewById( R.id.textCommOnlFrie );
 		friend= (Button) findViewById( R.id.btnFriend );
-		//Context context= getApplicationContext();
+
 		friend.setOnClickListener( new OnClickListener()
 		{
-
 			@Override
 			public void onClick( View v )
 			{
@@ -38,6 +52,17 @@ public class CommunityActivity extends Activity
 			}
 		} );
 		searchPlayer= (Button) findViewById( R.id.btnSearchPlay );
+	}
+	
+	@Override
+	protected void onSaveInstanceState( Bundle savedInstanceState )
+	{
+		super.onSaveInstanceState( savedInstanceState );
+		try{
+			savedInstanceState.putBoolean( "saved", true );
+		}catch (Exception e) {
+			L.logError( e );
+		}
 	}
 
 	@Override
