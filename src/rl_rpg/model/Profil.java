@@ -195,7 +195,8 @@ public class Profil implements Serializable
 				Profil tmp1= new Profil( "zdzisiek", 17, 1, true );
 				ArrayList<Skill> skills1= new ArrayList<Skill>();
 				skills1.add( new Skill( SkillType.DoingNothing, tmp1 ) );
-				skills1.add( new Skill( SkillType.Coding, tmp1 ) );
+				skills1.add( new Skill( SkillType.Test1, tmp1 ) );
+				skills1.get( 1 ).addValue( 50 );
 				tmp1.skills= skills1;
 				putInData( tmp1 );
 			}
@@ -204,6 +205,7 @@ public class Profil implements Serializable
 				ArrayList<Skill> skills2= new ArrayList<Skill>();
 				skills2.add( new Skill( SkillType.DoingNothing, tmp2 ) );
 				skills2.add( new Skill( SkillType.Coding, tmp2 ) );
+				skills2.get( 1 ).addValue( 30 );
 				tmp2.skills= skills2;
 				putInData( tmp2 );
 			}
@@ -211,7 +213,11 @@ public class Profil implements Serializable
 				Profil tmp3= new Profil( "kapitan dupa", 9000, 1, true );
 				ArrayList<Skill> skills3= new ArrayList<Skill>();
 				skills3.add( new Skill( SkillType.DoingNothing, tmp3 ) );
-				skills3.add( new Skill( SkillType.Coding, tmp3 ) );
+				skills3.add( new Skill( SkillType.Test1, tmp3 ) );
+				skills3.add( new Skill( SkillType.Test1, tmp3 ) );
+				skills3.add( new Skill( SkillType.Test2, tmp3 ) );
+				skills3.get( 0 ).addValue( 90 );
+				skills3.get( 1 ).addValue( 80 );
 				tmp3.skills= skills3;
 				putInData( tmp3 );
 			}//
