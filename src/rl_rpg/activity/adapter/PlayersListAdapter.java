@@ -57,7 +57,7 @@ public class PlayersListAdapter extends ListAdapter
 				{
 					Integer position= (Integer) v.getTag();
 					Profil profil= (Profil) parent.data.get( position );
-					Utils.startNewActivity(parent.inflater.getContext(), OtherPlayerAccountActivity.class, 200);
+					Utils.startNewActivity(parent.inflater.getContext(), OtherPlayerAccountActivity.class, profil.getLocalId());
 					//Toast.makeText( parent.inflater.getContext(), "Klikn¹³eœ " + profil.getNick(), Toast.LENGTH_SHORT ).show();
 				}
 			} );

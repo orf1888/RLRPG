@@ -24,10 +24,9 @@ public class OtherPlayerAccountActivity extends Activity
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_other_player_account );
 		// init Player
-		player=Profil.getLocal();
-		Bundle tmpBundle= getIntent().getExtras();
+		player=Profil.Manager.getProfilById( getIntent().getExtras().getInt( "ProfilID" ) );
 		// init Views
-		setTitle( "Player: "+player.getNick()+ "LVL: "+player.getLvl() );
+		setTitle( "Player: "+player.getNick()+ " LVL: "+player.getLvl() );
 		playerSkillsList= (ListView) findViewById( R.id.skillsList );
 		playerSkillsList.setAdapter( new SkillsListAdapter( this, Profil.getLocal().getSkills(), getResources(), false ) );
 	}
