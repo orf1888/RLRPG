@@ -1,5 +1,6 @@
 package rl_rpg.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,7 +8,7 @@ import rl_rpg.utils.L;
 import rl_rpg.utils.MapWithDefaults;
 
 
-public class Skill
+public class Skill implements Serializable
 {
 	///
 	/// model

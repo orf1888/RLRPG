@@ -2,7 +2,6 @@ package rl_rpg.activity;
 
 import rl_rpg.utils.Utils;
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -28,7 +27,7 @@ public class CommunityActivity extends Activity
 		onlPlayers= (TextView) findViewById( R.id.textCommOnlPlay );
 		onlFriends= (TextView) findViewById( R.id.textCommOnlFrie );
 		friend= (Button) findViewById( R.id.btnFriend );
-		Context context= getApplicationContext();
+		//Context context= getApplicationContext();
 		friend.setOnClickListener( new OnClickListener()
 		{
 

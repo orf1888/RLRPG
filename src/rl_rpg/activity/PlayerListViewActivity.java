@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import rl_rpg.activity.adapter.PlayersListAdapter;
 import rl_rpg.model.Profil;
+import rl_rpg.utils.L;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class PlayerListViewActivity extends Activity
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.players_list );
 
+		/*
 		if( savedInstanceState != null && savedInstanceState.getBoolean( "saved", false ) == true ) {
 			// restore save
 			int size= savedInstanceState.getInt( "player_count", 0 );
@@ -34,6 +36,8 @@ public class PlayerListViewActivity extends Activity
 			// create default
 			setListData();
 		}
+*/
+		setListData();
 
 		Resources res= getResources();
 		list= (ListView) findViewById( R.id.playersList );
@@ -47,10 +51,14 @@ public class PlayerListViewActivity extends Activity
 	protected void onSaveInstanceState( Bundle savedInstanceState )
 	{
 		super.onSaveInstanceState( savedInstanceState );
-		savedInstanceState.putBoolean( "saved", true );
-		savedInstanceState.putInt( "player_count", playersArr.size() );
-		for( int i= 0; i < playersArr.size(); i++ )
-			savedInstanceState.putSerializable( "player_" + i, playersArr.get( i ) );
+		try{
+			savedInstanceState.putBoolean( "saved", true );
+			savedInstanceState.putInt( "player_count", playersArr.size() );
+			for( int i= 0; i < playersArr.size(); i++ )
+				savedInstanceState.putSerializable( "player_" + i, playersArr.get( i ) );
+		}catch (Exception e) {
+			L.logError( e );
+		}
 	}
 
 	public void setListData()
