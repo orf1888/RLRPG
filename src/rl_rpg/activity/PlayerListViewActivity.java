@@ -60,9 +60,10 @@ public class PlayerListViewActivity extends Activity
 
 	public void setListData()
 	{
-		for( int i= 0; i < 11; i++ ) {
-			int id= (int) (10 * Math.random() + 1);
-			playersArr.add( Profil.Manager.getProfilById( id ) );
+		int count = Profil.Manager.getProfilsCount();
+		// pomijamy local profil uzytkownika, ktory ma id==0, wiec iterujemy dopiero od i=1
+		for( int i= 1; i < count; i++ ) {
+			playersArr.add( Profil.Manager.getProfilById( i ) );
 		}
 	}
 
