@@ -1,12 +1,13 @@
 package rl_rpg.activity;
 
 import rl_rpg.utils.Utils;
-import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 
@@ -21,9 +22,9 @@ public class StartScreenActivity extends Activity
 	@Override
 	protected void onCreate( Bundle savedInstanceState )
 	{
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_start_screen );
-		getActionBar().hide();
 		//init Views
 		signIn=(Button) findViewById( R.id.btnSignIn );
 		signIn.setOnClickListener( signInListener );
@@ -47,7 +48,7 @@ public class StartScreenActivity extends Activity
 		public void onClick( View v )
 		{
 			//1.dodac activity tworzenia konta
-			Utils.startNewActivity( StartScreenActivity.this, MainActivity.class, null );	
+			Utils.startNewActivity( StartScreenActivity.this, MainActivity.class, null );
 		}
 	};
 	
