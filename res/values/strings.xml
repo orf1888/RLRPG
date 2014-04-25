@@ -10,5 +10,6 @@
     <string name="title_activity_community">CommunityActivity</string>
     <string name="title_activity_player_list_view">PlayerListViewActivity</string>
     <string name="title_activity_other_player_account">OtherPlayerAccountActivity</string>
+    <string name="title_activity_start_screen">StartScreenActivity</string>
 
 </resources>
