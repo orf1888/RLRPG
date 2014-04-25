@@ -22,14 +22,17 @@ public class StartScreenActivity extends Activity
 	@Override
 	protected void onCreate( Bundle savedInstanceState )
 	{
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.requestWindowFeature( Window.FEATURE_NO_TITLE );
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_start_screen );
 		//init Views
-		signIn=(Button) findViewById( R.id.btnSignIn );
+		signIn= (Button) findViewById( R.id.btnSignIn );
 		signIn.setOnClickListener( signInListener );
-		createAccount=(Button) findViewById( R.id.btnCreateAcoount );
-		rememberMe=(CheckBox) findViewById( R.id.checkBoxRememberMe );
+		createAccount= (Button) findViewById( R.id.btnCreateAccount );
+		rememberMe= (CheckBox) findViewById( R.id.checkBoxRememberMe );
+		//set button width
+		Utils.setButtonWidth( createAccount, StartScreenActivity.this );
+		Utils.setButtonWidth( signIn, StartScreenActivity.this );
 	}
 
 
@@ -41,9 +44,9 @@ public class StartScreenActivity extends Activity
 		return true;
 	}
 
-	OnClickListener signInListener=new OnClickListener()
+	OnClickListener signInListener= new OnClickListener()
 	{
-		
+
 		@Override
 		public void onClick( View v )
 		{
@@ -51,26 +54,26 @@ public class StartScreenActivity extends Activity
 			Utils.startNewActivity( StartScreenActivity.this, MainActivity.class, null );
 		}
 	};
-	
-	OnClickListener createAccountListener=new OnClickListener()
+
+	OnClickListener createAccountListener= new OnClickListener()
 	{
-		
+
 		@Override
 		public void onClick( View v )
 		{
 			// TODO Auto-generated method stub
-			
+
 		}
 	};
-	
-	OnClickListener rememberMeListener=new OnClickListener()
+
+	OnClickListener rememberMeListener= new OnClickListener()
 	{
-		
+
 		@Override
 		public void onClick( View v )
 		{
 			// TODO Auto-generated method stub
-			
+
 		}
 	};
 }

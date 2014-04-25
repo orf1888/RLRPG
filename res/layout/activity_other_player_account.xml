@@ -53,13 +53,13 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/btnSignIn"
+                android:id="@+id/btnPlayerPerformedChallange"
                 android:layout_width="137dp"
                 android:layout_height="wrap_content"
                 android:text="Challenges" />
 
             <Button
-                android:id="@+id/btnCreateAcoount"
+                android:id="@+id/btnPlayerProgress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Progress" />

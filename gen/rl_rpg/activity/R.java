@@ -27,29 +27,31 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f080000;
-        public static final int action_settings=0x7f080026;
+        public static final int action_settings=0x7f080028;
         public static final int btnChallenge=0x7f08000d;
         public static final int btnCom=0x7f08000e;
-        public static final int btnCreateAcoount=0x7f080015;
+        public static final int btnCreateAccount=0x7f08001a;
         public static final int btnFriend=0x7f080007;
+        public static final int btnPlayerPerformedChallange=0x7f080014;
+        public static final int btnPlayerProgress=0x7f080015;
         public static final int btnPlayerSendMsg=0x7f080016;
         public static final int btnPlayerShowDetails=0x7f080017;
         public static final int btnSearchPlay=0x7f080008;
-        public static final int btnShowPlayAcc=0x7f08001f;
-        public static final int btnSignIn=0x7f080014;
-        public static final int btnSkillAbort=0x7f080023;
-        public static final int btnSkillTrain=0x7f080022;
-        public static final int challengeDesription=0x7f08001b;
-        public static final int challengeImg=0x7f080019;
-        public static final int challengeName=0x7f08001a;
-        public static final int challengeStart=0x7f08001c;
+        public static final int btnShowPlayAcc=0x7f080021;
+        public static final int btnSignIn=0x7f080019;
+        public static final int btnSkillAbort=0x7f080025;
+        public static final int btnSkillTrain=0x7f080024;
+        public static final int challengeDesription=0x7f08001d;
+        public static final int challengeImg=0x7f08001b;
+        public static final int challengeName=0x7f08001c;
+        public static final int challengeStart=0x7f08001e;
         public static final int checkBoxRememberMe=0x7f080018;
-        public static final int editSkillImproveValue=0x7f080021;
-        public static final int imagePlayer=0x7f08001e;
-        public static final int list=0x7f08001d;
+        public static final int editSkillImproveValue=0x7f080023;
+        public static final int imagePlayer=0x7f080020;
+        public static final int list=0x7f08001f;
         public static final int myAcc=0x7f080009;
-        public static final int playersList=0x7f080020;
-        public static final int progSkill=0x7f080025;
+        public static final int playersList=0x7f080022;
+        public static final int progSkill=0x7f080027;
         public static final int skillsList=0x7f080013;
         public static final int textCommOnlFrie=0x7f080006;
         public static final int textCommOnlPlay=0x7f080004;
@@ -62,7 +64,7 @@ public final class R {
         public static final int textMyAccXp=0x7f080011;
         public static final int textPlayerNick=0x7f080001;
         public static final int textSkillImprove=0x7f080012;
-        public static final int textSkillName=0x7f080024;
+        public static final int textSkillName=0x7f080026;
         public static final int textView1=0x7f080005;
         public static final int textView2=0x7f080003;
     }

@@ -37,8 +37,8 @@
             android:text="Sing in" />
 
         <Button
-            android:id="@+id/btnCreateAcoount"
-            android:layout_width="match_parent"
+            android:id="@+id/btnCreateAccount"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Create account" />
 
