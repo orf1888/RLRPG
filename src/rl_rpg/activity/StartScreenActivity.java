@@ -47,7 +47,7 @@ public class StartScreenActivity extends Activity
 		public void onClick( View v )
 		{
 			//1.dodac activity tworzenia konta
-			Utils.startNewActivity( StartScreenActivity.this, MyAccountActivity.class, null );	
+			Utils.startNewActivity( StartScreenActivity.this, MainActivity.class, null );	
 		}
 	};
 	

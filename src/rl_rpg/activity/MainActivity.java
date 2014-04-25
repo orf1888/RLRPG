@@ -118,7 +118,8 @@ public class MainActivity extends Activity
 		getMenuInflater().inflate( R.menu.main, menu );
 		return true;
 	}
-
+	
+	@Override
 	public void onBackPressed()
 	{
 		OnClickListener exitListener= new OnClickListener()
