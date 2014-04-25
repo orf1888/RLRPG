@@ -222,6 +222,11 @@ public class Profil implements Serializable
 			data.add( profil );
 			profil.local_id= data.size() - 1;
 		}
+		
+		public static int getProfilsCount()
+		{
+			return instance().data.size();
+		}
 
 		public static Profil getProfilById( int local_id )
 		{
