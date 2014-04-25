@@ -12,9 +12,6 @@ import android.widget.ListView;
 
 public class OtherPlayerAccountActivity extends Activity
 {
-
-	Profil player;
-
 	ListView playerSkillsList;
 
 	Button performedChallenge, progress, msg, playerDetails;
@@ -25,7 +22,7 @@ public class OtherPlayerAccountActivity extends Activity
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_other_player_account );
 		// init Player
-		player= Profil.Manager.getProfilById( getIntent().getExtras().getInt( "ProfilID" ) );
+		Profil player=Profil.Manager.getProfilById( getIntent().getExtras().getInt( "ProfilID" ) );
 		// init Views
 		setTitle( "Player: " + player.getNick() + " LVL: " + player.getLvl() );
 		playerSkillsList= (ListView) findViewById( R.id.skillsList );
@@ -47,6 +44,15 @@ public class OtherPlayerAccountActivity extends Activity
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate( R.menu.other_player_account, menu );
 		return true;
+	}
+	
+	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+
+		RLRPGApplication.performSave();
 	}
 
 }

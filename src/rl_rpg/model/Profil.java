@@ -179,6 +179,8 @@ public class Profil implements Serializable
 
 		public void init()
 		{
+			RLRPGApplication.addSaveLoadListener( new ProfilSaveLoadListener() );
+			RLRPGApplication.addLoopListener( new ProfilLoopListener() );
 			data= new ArrayList<Profil>();
 		}
 
@@ -256,12 +258,6 @@ public class Profil implements Serializable
 		public static Manager instance()
 		{
 			return INSTANCE;
-		}
-
-		private Manager()
-		{
-			RLRPGApplication.addSaveLoadListener( new ProfilSaveLoadListener() );
-			RLRPGApplication.addLoopListener( new ProfilLoopListener() );
 		}
 
 		//

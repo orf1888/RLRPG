@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import rl_rpg.activity.animation.AnimationThing;
 import rl_rpg.model.Profil;
 import rl_rpg.utils.L;
 import rl_rpg.utils.MapWithDefaults;
@@ -32,7 +33,11 @@ public class RLRPGApplication extends Application
 	@Override
 	public void onCreate()
 	{
-		initApplication();
+		try {
+			initApplication();
+		} catch ( Exception e ) {
+			L.logError( e );
+		}
 	}
 
 
@@ -111,7 +116,7 @@ public class RLRPGApplication extends Application
 					continue;
 				listener.onLoad( new MapWithDefaults( maps.get( key ) ) );
 			}
-			
+
 			return true;
 
 		} catch ( Exception e ) {
@@ -130,7 +135,7 @@ public class RLRPGApplication extends Application
 		for( SaveLoadListener listener : saveLoadListeners.values() ) {
 			if( listener == null )
 				continue;
-			listener.onLoad( new MapWithDefaults(null) );
+			listener.onLoad( new MapWithDefaults( null ) );
 		}
 	}
 
@@ -143,8 +148,9 @@ public class RLRPGApplication extends Application
 		L.log( "initApplication" );
 
 		Profil.Manager.instance().init();
+		AnimationThing.Manager.instance().init();
 
-		boolean loaded = RLRPGApplication.performLoad();
+		boolean loaded= RLRPGApplication.performLoad();
 		if( !loaded )
 			RLRPGApplication.performLoadDefaults();
 

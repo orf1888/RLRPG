@@ -51,15 +51,17 @@ public class ProfilWidget
 			@Override
 			public void onChange()
 			{
-				parent.runOnUiThread( new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						updateProfil();
-					}
-				} );
+				parent.runOnUiThread( func );
 			}
+			
+			Runnable func = new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					updateProfil();
+				}
+			};
 		} );
 
 		/////////////////////////
