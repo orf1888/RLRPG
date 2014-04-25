@@ -1,6 +1,5 @@
 package rl_rpg.activity;
 
-import rl_rpg.model.Profil;
 import rl_rpg.utils.L;
 import rl_rpg.utils.Utils;
 import android.app.Activity;
