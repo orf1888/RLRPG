@@ -53,6 +53,10 @@
             android:name="rl_rpg.activity.OtherPlayerAccountActivity"
             android:label="@string/title_activity_other_player_account" >
         </activity>
+         <activity
+            android:name="rl_rpg.activity.CreateAccountActivity"
+            android:label="@string/title_activity_other_player_account" >
+        </activity>
     </application>
 
 </manifest>

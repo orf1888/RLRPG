@@ -29,6 +29,7 @@ public class StartScreenActivity extends Activity
 		signIn= (Button) findViewById( R.id.btnSignIn );
 		signIn.setOnClickListener( signInListener );
 		createAccount= (Button) findViewById( R.id.btnCreateAccount );
+		createAccount.setOnClickListener(createAccountListener);
 		rememberMe= (CheckBox) findViewById( R.id.checkBoxRememberMe );
 		//set button width
 		Utils.setButtonWidth( createAccount, StartScreenActivity.this );
@@ -61,7 +62,7 @@ public class StartScreenActivity extends Activity
 		@Override
 		public void onClick( View v )
 		{
-			// TODO Auto-generated method stub
+			Utils.startNewActivity( StartScreenActivity.this, CreateAccountActivity.class, null );
 
 		}
 	};
