@@ -2,8 +2,10 @@ package rl_rpg.activity.adapter;
 
 import java.util.List;
 
+import rl_rpg.activity.OtherPlayerAccountActivity;
 import rl_rpg.activity.R;
 import rl_rpg.model.Profil;
+import rl_rpg.utils.Utils;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.view.View;
@@ -55,7 +57,8 @@ public class PlayersListAdapter extends ListAdapter
 				{
 					Integer position= (Integer) v.getTag();
 					Profil profil= (Profil) parent.data.get( position );
-					Toast.makeText( parent.inflater.getContext(), "Klikn¹³eœ " + profil.getNick(), Toast.LENGTH_SHORT ).show();
+					Utils.startNewActivity(parent.inflater.getContext(), OtherPlayerAccountActivity.class, 200);
+					//Toast.makeText( parent.inflater.getContext(), "Klikn¹³eœ " + profil.getNick(), Toast.LENGTH_SHORT ).show();
 				}
 			} );
 		}

@@ -9,5 +9,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_community">CommunityActivity</string>
     <string name="title_activity_player_list_view">PlayerListViewActivity</string>
+    <string name="title_activity_other_player_account">OtherPlayerAccountActivity</string>
 
 </resources>

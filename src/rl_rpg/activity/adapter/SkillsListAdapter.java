@@ -18,12 +18,15 @@ import android.widget.TextView;
 
 public class SkillsListAdapter extends ListAdapter
 {
+	boolean clickable;
+
 	@SuppressWarnings("rawtypes")
-	public SkillsListAdapter( Activity a, List d, Resources res )
+	public SkillsListAdapter( Activity a, List d, Resources res, boolean clickable )
 	{
 		super( a, d, res, R.layout.skill_item );
+		this.clickable= clickable;
 	}
-	
+
 	@Override
 	OnClickListener getOnRowClickListener()
 	{
@@ -40,51 +43,57 @@ public class SkillsListAdapter extends ListAdapter
 	{
 		ViewHolder( View viev )
 		{
-			skillName = (TextView) viev.findViewById( R.id.textSkillName );
-			skillValue = (ProgressBar) viev.findViewById( R.id.progSkill );
+			skillName= (TextView) viev.findViewById( R.id.textSkillName );
+			skillValue= (ProgressBar) viev.findViewById( R.id.progSkill );
 		}
 
 		public TextView skillName;
 		public ProgressBar skillValue;
 		int position;
-		
+
 		@Override
 		public void clear()
 		{
 			skillName.setText( "No Skill" );
 		}
-		
+
 		@Override
 		public void set( Object model, int position )
 		{
 			this.position= position;
-			Skill tempValue = (Skill) model;
+			Skill tempValue= (Skill) model;
 			skillName.setText( tempValue.getName() );
 			skillValue.setProgress( tempValue.getValue() );
 		}
 	}
-	
+
 	//Listenery
-	android.content.DialogInterface.OnClickListener returnListener=new android.content.DialogInterface.OnClickListener() {
+	android.content.DialogInterface.OnClickListener returnListener= new android.content.DialogInterface.OnClickListener()
+	{
 		@Override
-		public void onClick(DialogInterface dialog, int which) {
+		public void onClick( DialogInterface dialog, int which )
+		{
 			return;
 		}
 	};
-	
+
 	//android.content.DialogInterface.OnClickListener trainListener=new 
-	class SkillDialogOnCliclListener implements android.content.DialogInterface.OnClickListener {
-		
+	class SkillDialogOnCliclListener implements android.content.DialogInterface.OnClickListener
+	{
+
 		Skill skill;
-		
-		SkillDialogOnCliclListener( Skill skill ){
+
+		SkillDialogOnCliclListener( Skill skill )
+		{
 			this.skill= skill;
 		}
-		
+
 		@Override
-		public void onClick(DialogInterface dialog, int which) {
-			SkillTainingDialog improveDialog=new SkillTainingDialog( activity, skill.getName(), "How many lines of code did you wrote today?", null, null, "Submit", "Back", new EditText( activity ) );
-			improveDialog.showDialog();	
+		public void onClick( DialogInterface dialog, int which )
+		{
+			SkillTainingDialog improveDialog= new SkillTainingDialog( activity, skill.getName(),
+					"How many lines of code did you wrote today?", null, null, "Submit", "Back", new EditText( activity ) );
+			improveDialog.showDialog();
 		}
 	};
 
@@ -93,13 +102,16 @@ public class SkillsListAdapter extends ListAdapter
 		@Override
 		public void onClick( View view )
 		{
-			ViewHolder h= (ViewHolder) view.getTag();
+			if( clickable ) {
+				ViewHolder h= (ViewHolder) view.getTag();
 
-			Skill skill= (Skill) data.get( h.position );
-			SkillDialogOnCliclListener trainListener = new SkillDialogOnCliclListener(skill);
-			
-			DialogBuilder dialog=new DialogBuilder(activity, skill.getName(), skill.getDescr(), trainListener, returnListener, "Train", "Back");
-			dialog.showDialog();
+				Skill skill= (Skill) data.get( h.position );
+				SkillDialogOnCliclListener trainListener= new SkillDialogOnCliclListener( skill );
+
+				DialogBuilder dialog= new DialogBuilder( activity, skill.getName(), skill.getDescr(), trainListener,
+						returnListener, "Train", "Back" );
+				dialog.showDialog();
+			}
 		}
 	};
 }

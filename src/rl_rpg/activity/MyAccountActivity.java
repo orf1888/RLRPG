@@ -32,7 +32,7 @@ public class MyAccountActivity extends Activity
 		/* Skill list init */
 
 		list= (ListView) findViewById( R.id.skillsList );
-		list.setAdapter( new SkillsListAdapter( this, Profil.getLocal().getSkills(), getResources() ) );
+		list.setAdapter( new SkillsListAdapter( this, Profil.getLocal().getSkills(), getResources(),true ) );
 	}
 
 

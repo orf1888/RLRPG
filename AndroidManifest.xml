@@ -43,6 +43,10 @@
             android:name="rl_rpg.activity.PlayerListViewActivity"
             android:label="@string/title_activity_player_list_view" >
         </activity>
+        <activity
+            android:name="rl_rpg.activity.OtherPlayerAccountActivity"
+            android:label="@string/title_activity_other_player_account" >
+        </activity>
     </application>
 
 </manifest>
